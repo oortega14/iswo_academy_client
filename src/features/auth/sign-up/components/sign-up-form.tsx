@@ -2,8 +2,17 @@ import { HTMLAttributes, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
+import { useNavigate } from '@tanstack/react-router'
+import {
+  IconBrandFacebook,
+  IconBrandGithub,
+  IconMail,
+  IconUser,
+  IconUserBolt,
+} from '@tabler/icons-react'
+import { api } from '@/api'
 import { cn } from '@/lib/utils'
+import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -14,8 +23,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { PasswordInput } from '@/components/password-input'
-import { PinInput } from '@/components/pin-input'
 
 type SignUpFormProps = HTMLAttributes<HTMLDivElement>
 
@@ -23,25 +30,25 @@ const formSchema = z.object({
   user: z.object({
     email: z
       .string()
-      .email({ message: "Debe ser el formato de e-mail valido" }),
+      .email({ message: 'Debe ser el formato de e-mail valido' }),
     user_detail_attributes: z.object({
       first_name: z
         .string()
-        .min(3, { message: "Nombre no puede estar vacío" })
-        .max(50, { message: "Nombre debe tener como máximo 50 caracteres" }),
+        .min(3, { message: 'Nombre no puede estar vacío' })
+        .max(50, { message: 'Nombre debe tener como máximo 50 caracteres' }),
       last_name: z
         .string()
-        .min(3, { message: "Tús apellidos no pueden estar vacíos" })
+        .min(3, { message: 'Tús apellidos no pueden estar vacíos' })
         .max(50, {
-          message: "Tús apellidos debe tener como máximo 50 caracteres",
-      }),
+          message: 'Tús apellidos debe tener como máximo 50 caracteres',
+        }),
     }),
   }),
-});
-
+})
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,16 +61,49 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         },
       },
     },
-  });
+  })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
-    // eslint-disable-next-line no-console
-    console.log(data)
 
-    setTimeout(() => {
+    try {
+      await api.post('/users', data)
+
+      toast({
+        title: '¡Registro exitoso!',
+        description: 'Tu cuenta ha sido creada correctamente.',
+      })
+
+      navigate({ to: '/sign-in' })
+    } catch (error) {
+      if (
+        error.response?.data?.error?.messages &&
+        Array.isArray(error.response.data.error.messages)
+      ) {
+        error.response.data.error.messages.forEach((message: string) => {
+          toast({
+            variant: 'destructive',
+            title: 'Error en el registro',
+            description: message,
+          })
+
+          if (message.toLowerCase().includes('email ya existe')) {
+            form.setError('user.email', {
+              type: 'manual',
+              message: 'Este email ya está registrado',
+            })
+          }
+        })
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Error en el registro',
+          description: 'Ocurrió un error. Por favor, inténtalo de nuevo.',
+        })
+      }
+    } finally {
       setIsLoading(false)
-    }, 3000)
+    }
   }
 
   return (
@@ -75,10 +115,13 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
               control={form.control}
               name='user.email'
               render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <FormLabel>Email</FormLabel>
+                <FormItem className='space-y-2'>
+                  <div className='flex items-center gap-2'>
+                    <IconMail className='h-4 w-4' />
+                    <FormLabel>Email</FormLabel>
+                  </div>
                   <FormControl>
-                    <Input placeholder='name@example.com' {...field} />
+                    <Input placeholder='ejemplo@iswoacademy.com' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -88,12 +131,13 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
               control={form.control}
               name='user.user_detail_attributes.first_name'
               render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <FormLabel>Nombre</FormLabel>
+                <FormItem className='space-y-2'>
+                  <div className='flex items-center gap-2'>
+                    <IconUserBolt className='h-4 w-4' />
+                    <FormLabel>Nombre</FormLabel>
+                  </div>
                   <FormControl>
-                    <PinInput>
-                      <span>hola</span>
-                    </PinInput>
+                    <Input placeholder='Pon aquí tus nombres' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -103,17 +147,20 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
               control={form.control}
               name='user.user_detail_attributes.last_name'
               render={({ field }) => (
-                <FormItem className='space-y-1'>
-                  <FormLabel>Confirm Password</FormLabel>
+                <FormItem className='space-y-2'>
+                  <div className='flex items-center gap-2'>
+                    <IconUserBolt className='h-4 w-4' />
+                    <FormLabel>Apellidos</FormLabel>
+                  </div>
                   <FormControl>
-                    <PasswordInput placeholder='********' {...field} />
+                    <Input placeholder='Pon aquí tus apellidos' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <Button className='mt-2' disabled={isLoading}>
-              Create Account
+              Crear cuenta
             </Button>
 
             <div className='relative my-2'>
@@ -122,7 +169,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
               </div>
               <div className='relative flex justify-center text-xs uppercase'>
                 <span className='bg-background px-2 text-muted-foreground'>
-                  Or continue with
+                  O continua con
                 </span>
               </div>
             </div>

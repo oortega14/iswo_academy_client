@@ -1,7 +1,8 @@
 import Cookies from 'js-cookie'
 import { create } from 'zustand'
 
-const ACCESS_TOKEN = 'thisisjustarandomstring'
+// Ya no necesitamos esta constante ya que no guardaremos el token de acceso en cookies
+// const ACCESS_TOKEN = 'thisisjustarandomstring'
 
 interface AuthUser {
   accountNo: string
@@ -22,27 +23,26 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>()((set) => {
-  const cookieState = Cookies.get(ACCESS_TOKEN)
-  const initToken = cookieState ? JSON.parse(cookieState) : ''
+  // Ya no inicializamos el token desde cookies
   return {
     auth: {
       user: null,
       setUser: (user) =>
         set((state) => ({ ...state, auth: { ...state.auth, user } })),
-      accessToken: initToken,
+      accessToken: '',
       setAccessToken: (accessToken) =>
         set((state) => {
-          Cookies.set(ACCESS_TOKEN, JSON.stringify(accessToken))
+          // No guardamos el token en cookies, solo en la memoria
           return { ...state, auth: { ...state.auth, accessToken } }
         }),
       resetAccessToken: () =>
         set((state) => {
-          Cookies.remove(ACCESS_TOKEN)
+          // Ya no necesitamos eliminar cookies aquí
           return { ...state, auth: { ...state.auth, accessToken: '' } }
         }),
       reset: () =>
         set((state) => {
-          Cookies.remove(ACCESS_TOKEN)
+          // Ya no necesitamos eliminar cookies aquí
           return {
             ...state,
             auth: { ...state.auth, user: null, accessToken: '' },
