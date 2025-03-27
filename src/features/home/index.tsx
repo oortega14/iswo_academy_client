@@ -9,12 +9,14 @@ import {
   IconUsers,
 } from '@tabler/icons-react'
 import { motion, useScroll } from 'framer-motion'
+import ReactPlayer from 'react-player'
 import { Button } from '@/components/ui/button'
 import { Main } from '@/components/layout/main'
 import { FeatureCard } from './components/FeatureCard'
 import { HomeHeader } from './components/HomeHeader'
 import { PricingCard } from './components/PricingCard'
 import { StepCard } from './components/StepCard'
+import VideoPlayer from '@/components/video-player'
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false)
@@ -96,9 +98,7 @@ export default function Home() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              <p className='text-muted-foreground'>
-                Video o imagen de presentación
-              </p>
+              <VideoPlayer url='https://www.youtube.com/watch?v=2NSdrVS0MFc&list=PLAEEYg4AUFM63CU30TMmgZReW_Gj8nFyA&ab_channel=%F0%9F%92%A1SIGISWOSoftware%2CelmejorparaCalidad%26HSEQ' />
             </motion.div>
           </motion.section>
 

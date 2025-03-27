@@ -82,7 +82,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       ) {
         error.response.data.error.messages.forEach((message: string) => {
           toast({
-            variant: 'destructive',
+            variant: 'default',
             title: 'Error en el registro',
             description: message,
           })
@@ -96,7 +96,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         })
       } else {
         toast({
-          variant: 'destructive',
+          variant: 'default',
           title: 'Error en el registro',
           description: 'Ocurrió un error. Por favor, inténtalo de nuevo.',
         })
