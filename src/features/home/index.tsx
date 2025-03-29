@@ -93,7 +93,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div
-              className='mt-10 flex h-48 w-full max-w-5xl items-center justify-center rounded-xl bg-muted sm:h-60 md:mt-16 md:h-80'
+              className='mt-10 flex h-48 w-full max-w-5xl items-center justify-center rounded-xl bg-muted sm:h-60 md:mt-16 md:h-auto'
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8, duration: 0.6 }}

@@ -1,37 +1,121 @@
-import { Card } from '@/components/ui/card'
-import AuthLayout from '../auth-layout'
+import { motion } from 'framer-motion'
 import { UserAuthForm } from './components/user-auth-form'
 
 export default function SignIn() {
   return (
-    <AuthLayout>
-      <Card className='p-6'>
-        <div className='flex flex-col space-y-2 text-left'>
-          <h1 className='text-2xl font-semibold tracking-tight'>Login</h1>
-          <p className='text-sm text-muted-foreground'>
-            Enter your email and password below <br />
-            to log into your account
-          </p>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className='container relative grid h-svh flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0'>
+        <div className='relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex'>
+          <div className='absolute inset-0 bg-zinc-900' />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{
+              duration: 0.8,
+              ease: 'easeOut',
+              delay: 0.4,
+            }}
+            className='relative m-auto flex flex-col items-center text-center'
+          >
+            <img
+              src='/images/ISWO_LARGE.webp'
+              width={301}
+              height={60}
+              alt='Tu Academia'
+              className='mb-6 hover:animate-pulse invert'
+            />
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
+              className='mt-6 max-w-md text-lg text-gray-200'
+            >
+              Transforma tu conocimiento en una experiencia educativa única. La
+              plataforma todo-en-uno para crear, gestionar y hacer crecer tu
+              academia online.
+            </motion.p>
+          </motion.div>
         </div>
-        <UserAuthForm />
-        <p className='mt-4 px-8 text-center text-sm text-muted-foreground'>
-          By clicking login, you agree to our{' '}
-          <a
-            href='/terms'
-            className='underline underline-offset-4 hover:text-primary'
+
+        <div className='flex items-center justify-center p-4 lg:p-8'>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className='mx-auto flex w-full flex-col justify-center space-y-4 sm:w-[380px]'
           >
-            Terms of Service
-          </a>{' '}
-          and{' '}
-          <a
-            href='/privacy'
-            className='underline underline-offset-4 hover:text-primary'
-          >
-            Privacy Policy
-          </a>
-          .
-        </p>
-      </Card>
-    </AuthLayout>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{
+                duration: 0.8,
+                ease: 'easeOut',
+                delay: 0.4,
+              }}
+              className='relative flex flex-col items-center text-center lg:hidden'
+            >
+              <img
+                src='/images/ISWO_LARGE.webp'
+                width={301}
+                height={60}
+                alt='Tu Academia'
+                className='w-48 sm:w-64 md:w-72 mb-8 hover:animate-pulse'
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className='flex flex-col space-y-3 text-left'
+            >
+              <h1 className='text-2xl font-semibold tracking-tight'>
+                Iniciar sesión
+              </h1>
+              <p className='text-sm text-muted-foreground'>
+                Ingresa tu correo electrónico y contraseña para iniciar sesión
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+            >
+              <UserAuthForm />
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className='px-8 text-center text-sm text-muted-foreground'
+            >
+              Al iniciar sesión, aceptas nuestros{' '}
+              <a
+                href='/terms'
+                className='underline underline-offset-4 hover:text-primary'
+              >
+                Términos de servicio
+              </a>{' '}
+              y{' '}
+              <a
+                href='/privacy'
+                className='underline underline-offset-4 hover:text-primary'
+              >
+                Política de privacidad
+              </a>
+              .
+            </motion.p>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
   )
 }

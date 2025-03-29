@@ -2,7 +2,7 @@ import { HTMLAttributes, useState } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link, useNavigate, useSearch } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import {
   IconBrandFacebook,
   IconBrandGithub,
@@ -11,8 +11,8 @@ import {
 } from '@tabler/icons-react'
 import { useAuth } from '@/api/useAuth'
 import { cn } from '@/lib/utils'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 import {
   Form,
   FormControl,
@@ -46,7 +46,7 @@ const formSchema = z.object({
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
-  const { redirect } = useSearch({ from: '/sign-in' })
+
   const { login } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -69,26 +69,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       })
 
       if (result.success) {
-        toast({
-          title: '¡Inicio de sesión exitoso!',
-          description: 'Redirigiendo...',
-        })
-
-        // Redirigir al usuario a la página de destino o la página principal
-        navigate({ to: redirect || '/' })
+        toast.success('¡Inicio de sesión exitoso!')
+        navigate({ to: '/' })
       } else {
-        toast({
-          variant: 'destructive',
-          title: 'Error de inicio de sesión',
-          description: result.error,
-        })
+        toast.error('Error de inicio de sesión')
       }
     } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Error de inicio de sesión',
-        description: 'Ocurrió un error. Por favor, inténtelo de nuevo.',
-      })
+      toast.error('Ocurrió un error. Por favor, inténtelo de nuevo.')
     } finally {
       setIsLoading(false)
     }
@@ -109,7 +96,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     <FormLabel>Email</FormLabel>
                   </div>
                   <FormControl>
-                    <Input placeholder='ejemplo@iswo.com.co' {...field} />
+                    <Input placeholder='ejemplo@iswo.com.co' autoComplete="email" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -125,7 +112,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     <FormLabel>Contraseña</FormLabel>
                   </div>
                   <FormControl>
-                    <PasswordInput placeholder='********' {...field} />
+                    <PasswordInput placeholder='********' autoComplete="current-password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -141,7 +128,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               </div>
               <div className='relative flex justify-center text-xs uppercase'>
                 <span className='bg-background px-2 text-muted-foreground'>
-                  Or continue with
+                  O continua con
                 </span>
               </div>
             </div>

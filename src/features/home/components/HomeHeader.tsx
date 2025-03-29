@@ -3,7 +3,6 @@ import { useNavigate } from '@tanstack/react-router'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Search } from '@/components/search'
 
 interface HomeHeaderProps extends React.HTMLAttributes<HTMLElement> {
   scrolled: boolean

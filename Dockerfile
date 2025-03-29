@@ -1,5 +1,18 @@
-# Usar una imagen base de Node.js
-FROM node:23-alpine
+# Usar Ubuntu como imagen base
+FROM ubuntu:25.04
+
+# Evitar interacciones durante la instalación de paquetes
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Actualizar e instalar dependencias necesarias
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    && curl -fsSL https://deb.nodesource.com/setup_23.x | bash - \
+    && apt-get install -y \
+    nodejs \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Establecer el directorio de trabajo
 WORKDIR /app
