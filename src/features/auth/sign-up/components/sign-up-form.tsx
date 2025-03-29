@@ -9,7 +9,7 @@ import {
   IconMail,
   IconUserBolt,
 } from '@tabler/icons-react'
-import { api } from '@/api'
+import { useAuth } from '@/api'
 import { cn } from '@/lib/utils'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -48,6 +48,7 @@ const formSchema = z.object({
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const { register } = useAuth()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -64,33 +65,14 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
-
-    try {
-      await api.post('/users', data)
-
+    const response = await register(data)
+    if (response.success) {
       toast.success('¡Registro exitoso!')
       navigate({ to: '/sign-in' })
-    } catch (error) {
-      if (
-        error.response?.data?.error?.messages &&
-        Array.isArray(error.response.data.error.messages)
-      ) {
-        error.response.data.error.messages.forEach((message: string) => {
-          toast.error(message)
-
-          if (message.toLowerCase().includes('email ya existe')) {
-            form.setError('user.email', {
-              type: 'manual',
-              message: 'Este email ya está registrado',
-            })
-          }
-        })
-      } else {
-        toast.error('Ocurrió un error. Por favor, inténtalo de nuevo.')
-      }
-    } finally {
-      setIsLoading(false)
+    } else {
+      toast.error(response.error)
     }
+    setIsLoading(false)
   }
 
   return (
