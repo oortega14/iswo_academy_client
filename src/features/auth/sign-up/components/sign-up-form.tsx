@@ -7,12 +7,11 @@ import {
   IconBrandFacebook,
   IconBrandGithub,
   IconMail,
-  IconUser,
   IconUserBolt,
 } from '@tabler/icons-react'
 import { api } from '@/api'
 import { cn } from '@/lib/utils'
-import { toast } from '@/hooks/use-toast'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -69,11 +68,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
     try {
       await api.post('/users', data)
 
-      toast({
-        title: '¡Registro exitoso!',
-        description: 'Tu cuenta ha sido creada correctamente.',
-      })
-
+      toast.success('¡Registro exitoso!')
       navigate({ to: '/sign-in' })
     } catch (error) {
       if (
@@ -81,11 +76,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         Array.isArray(error.response.data.error.messages)
       ) {
         error.response.data.error.messages.forEach((message: string) => {
-          toast({
-            variant: 'default',
-            title: 'Error en el registro',
-            description: message,
-          })
+          toast.error(message)
 
           if (message.toLowerCase().includes('email ya existe')) {
             form.setError('user.email', {
@@ -95,11 +86,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
           }
         })
       } else {
-        toast({
-          variant: 'default',
-          title: 'Error en el registro',
-          description: 'Ocurrió un error. Por favor, inténtalo de nuevo.',
-        })
+        toast.error('Ocurrió un error. Por favor, inténtalo de nuevo.')
       }
     } finally {
       setIsLoading(false)
