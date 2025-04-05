@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { IconAlertTriangle } from '@tabler/icons-react'
-import { toast } from '@/hooks/use-toast'
+import { toast } from 'sonner'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -22,8 +22,7 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: Props) {
     if (value.trim() !== currentRow.username) return
 
     onOpenChange(false)
-    toast({
-      title: 'The following user has been deleted:',
+    toast.success('The following user has been deleted:', {
       description: (
         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
           <code className='text-white'>

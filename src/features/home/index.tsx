@@ -9,7 +9,6 @@ import {
   IconUsers,
 } from '@tabler/icons-react'
 import { motion, useScroll } from 'framer-motion'
-import ReactPlayer from 'react-player'
 import { Button } from '@/components/ui/button'
 import { Main } from '@/components/layout/main'
 import { FeatureCard } from './components/FeatureCard'

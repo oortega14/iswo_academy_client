@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { IconCheck, IconX } from '@tabler/icons-react'
-import { toast } from '@/hooks/use-toast'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,6 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { ChatUser } from '../data/chat-types'
+import { toast } from 'sonner'
 
 type User = Omit<ChatUser, 'messages'>
 
@@ -48,8 +48,7 @@ export function NewChat({ users, onOpenChange, open }: Props) {
   }, [open])
 
   const onSubmit = () => {
-    toast({
-      title: 'You submitted the following values:',
+    toast.success('You submitted the following values:', {
       description: (
         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
           <code className='text-white'>
