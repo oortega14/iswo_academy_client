@@ -1,12 +1,7 @@
 services:
   web:
-    build: .
-    ports:
-      - "5173:5173"
+    restart: unless-stopped
     volumes:
-      - .:/app
       - node_modules:/app/node_modules
-    environment:
-      - NODE_ENV=development
 volumes:
   node_modules:
