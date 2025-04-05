@@ -15,8 +15,15 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as CompleteProfileUpdatePasswordImport } from './routes/complete-profile/update-password'
+import { Route as CompleteProfilePersonalInfoImport } from './routes/complete-profile/personal-info'
+import { Route as CompleteProfileFinalConfirmationImport } from './routes/complete-profile/final-confirmation'
 import { Route as authOtpImport } from './routes/(auth)/otp'
+import { Route as authConfirmEmailImport } from './routes/(auth)/confirm-email'
+import { Route as authChooseAcademyImport } from './routes/(auth)/choose-academy'
 import { Route as auth500Import } from './routes/(auth)/500'
+import { Route as CompleteProfileUserAcademyIdSetAcademyImport } from './routes/complete-profile/$userAcademyId/set-academy'
+import { Route as CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport } from './routes/complete-profile/$userAcademyId/set-preferences/$academyId'
 import { Route as AuthenticatedAdminAcademiesAcademyIdDashboardContentImport } from './routes/_authenticated/admin/academies/$academyId/dashboard/content'
 
 // Create Virtual Routes
@@ -153,9 +160,44 @@ const AuthenticatedSettingsRouteLazyRoute =
     import('./routes/_authenticated/settings/route.lazy').then((d) => d.Route),
   )
 
+const CompleteProfileUpdatePasswordRoute =
+  CompleteProfileUpdatePasswordImport.update({
+    id: '/complete-profile/update-password',
+    path: '/complete-profile/update-password',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CompleteProfilePersonalInfoRoute =
+  CompleteProfilePersonalInfoImport.update({
+    id: '/complete-profile/personal-info',
+    path: '/complete-profile/personal-info',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CompleteProfileFinalConfirmationRoute =
+  CompleteProfileFinalConfirmationImport.update({
+    id: '/complete-profile/final-confirmation',
+    path: '/complete-profile/final-confirmation',
+    getParentRoute: () => rootRoute,
+  } as any)
+
 const authOtpRoute = authOtpImport.update({
   id: '/(auth)/otp',
   path: '/otp',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authConfirmEmailRoute = authConfirmEmailImport
+  .update({
+    id: '/(auth)/confirm-email',
+    path: '/confirm-email',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/confirm-email.lazy').then((d) => d.Route))
+
+const authChooseAcademyRoute = authChooseAcademyImport.update({
+  id: '/(auth)/choose-academy',
+  path: '/choose-academy',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -266,6 +308,20 @@ const AuthenticatedSettingsAccountLazyRoute =
     ),
   )
 
+const CompleteProfileUserAcademyIdSetAcademyRoute =
+  CompleteProfileUserAcademyIdSetAcademyImport.update({
+    id: '/complete-profile/$userAcademyId/set-academy',
+    path: '/complete-profile/$userAcademyId/set-academy',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute =
+  CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport.update({
+    id: '/complete-profile/$userAcademyId/set-preferences/$academyId',
+    path: '/complete-profile/$userAcademyId/set-preferences/$academyId',
+    getParentRoute: () => rootRoute,
+  } as any)
+
 const AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute =
   AuthenticatedAdminAcademiesAcademyIdDashboardContentImport.update({
     id: '/admin/academies/$academyId/dashboard/content',
@@ -298,11 +354,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof auth500Import
       parentRoute: typeof rootRoute
     }
+    '/(auth)/choose-academy': {
+      id: '/(auth)/choose-academy'
+      path: '/choose-academy'
+      fullPath: '/choose-academy'
+      preLoaderRoute: typeof authChooseAcademyImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/confirm-email': {
+      id: '/(auth)/confirm-email'
+      path: '/confirm-email'
+      fullPath: '/confirm-email'
+      preLoaderRoute: typeof authConfirmEmailImport
+      parentRoute: typeof rootRoute
+    }
     '/(auth)/otp': {
       id: '/(auth)/otp'
       path: '/otp'
       fullPath: '/otp'
       preLoaderRoute: typeof authOtpImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/final-confirmation': {
+      id: '/complete-profile/final-confirmation'
+      path: '/complete-profile/final-confirmation'
+      fullPath: '/complete-profile/final-confirmation'
+      preLoaderRoute: typeof CompleteProfileFinalConfirmationImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/personal-info': {
+      id: '/complete-profile/personal-info'
+      path: '/complete-profile/personal-info'
+      fullPath: '/complete-profile/personal-info'
+      preLoaderRoute: typeof CompleteProfilePersonalInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/update-password': {
+      id: '/complete-profile/update-password'
+      path: '/complete-profile/update-password'
+      fullPath: '/complete-profile/update-password'
+      preLoaderRoute: typeof CompleteProfileUpdatePasswordImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/settings': {
@@ -366,6 +457,13 @@ declare module '@tanstack/react-router' {
       path: '/503'
       fullPath: '/503'
       preLoaderRoute: typeof errors503LazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/$userAcademyId/set-academy': {
+      id: '/complete-profile/$userAcademyId/set-academy'
+      path: '/complete-profile/$userAcademyId/set-academy'
+      fullPath: '/complete-profile/$userAcademyId/set-academy'
+      preLoaderRoute: typeof CompleteProfileUserAcademyIdSetAcademyImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/settings/account': {
@@ -438,6 +536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
+    '/complete-profile/$userAcademyId/set-preferences/$academyId': {
+      id: '/complete-profile/$userAcademyId/set-preferences/$academyId'
+      path: '/complete-profile/$userAcademyId/set-preferences/$academyId'
+      fullPath: '/complete-profile/$userAcademyId/set-preferences/$academyId'
+      preLoaderRoute: typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated/admin/academies/$academyId/dashboard/content': {
       id: '/_authenticated/admin/academies/$academyId/dashboard/content'
       path: '/admin/academies/$academyId/dashboard/content'
@@ -505,7 +610,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthenticatedRouteRouteWithChildren
   '/500': typeof errors500LazyRoute
+  '/choose-academy': typeof authChooseAcademyRoute
+  '/confirm-email': typeof authConfirmEmailRoute
   '/otp': typeof authOtpRoute
+  '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
+  '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
+  '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
   '/settings': typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/sign-in': typeof authSignInLazyRoute
@@ -514,6 +624,7 @@ export interface FileRoutesByFullPath {
   '/403': typeof errors403LazyRoute
   '/404': typeof errors404LazyRoute
   '/503': typeof errors503LazyRoute
+  '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRoute
   '/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
@@ -524,6 +635,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexLazyRoute
   '/tasks': typeof AuthenticatedTasksIndexLazyRoute
   '/users': typeof AuthenticatedUsersIndexLazyRoute
+  '/complete-profile/$userAcademyId/set-preferences/$academyId': typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
   '/admin/academies/$academyId/dashboard/content': typeof AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute
 }
 
@@ -531,7 +643,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthenticatedRouteRouteWithChildren
   '/500': typeof errors500LazyRoute
+  '/choose-academy': typeof authChooseAcademyRoute
+  '/confirm-email': typeof authConfirmEmailRoute
   '/otp': typeof authOtpRoute
+  '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
+  '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
+  '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/sign-in': typeof authSignInLazyRoute
   '/sign-up': typeof authSignUpLazyRoute
@@ -539,6 +656,7 @@ export interface FileRoutesByTo {
   '/403': typeof errors403LazyRoute
   '/404': typeof errors404LazyRoute
   '/503': typeof errors503LazyRoute
+  '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRoute
   '/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
@@ -549,6 +667,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexLazyRoute
   '/tasks': typeof AuthenticatedTasksIndexLazyRoute
   '/users': typeof AuthenticatedUsersIndexLazyRoute
+  '/complete-profile/$userAcademyId/set-preferences/$academyId': typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
   '/admin/academies/$academyId/dashboard/content': typeof AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute
 }
 
@@ -557,7 +676,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/(auth)/500': typeof auth500Route
+  '/(auth)/choose-academy': typeof authChooseAcademyRoute
+  '/(auth)/confirm-email': typeof authConfirmEmailRoute
   '/(auth)/otp': typeof authOtpRoute
+  '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
+  '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
+  '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   '/(auth)/forgot-password': typeof authForgotPasswordLazyRoute
   '/(auth)/sign-in': typeof authSignInLazyRoute
@@ -567,6 +691,7 @@ export interface FileRoutesById {
   '/(errors)/404': typeof errors404LazyRoute
   '/(errors)/500': typeof errors500LazyRoute
   '/(errors)/503': typeof errors503LazyRoute
+  '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRoute
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
@@ -577,6 +702,7 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexLazyRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexLazyRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexLazyRoute
+  '/complete-profile/$userAcademyId/set-preferences/$academyId': typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
   '/_authenticated/admin/academies/$academyId/dashboard/content': typeof AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute
 }
 
@@ -586,7 +712,12 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/500'
+    | '/choose-academy'
+    | '/confirm-email'
     | '/otp'
+    | '/complete-profile/final-confirmation'
+    | '/complete-profile/personal-info'
+    | '/complete-profile/update-password'
     | '/settings'
     | '/forgot-password'
     | '/sign-in'
@@ -595,6 +726,7 @@ export interface FileRouteTypes {
     | '/403'
     | '/404'
     | '/503'
+    | '/complete-profile/$userAcademyId/set-academy'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -605,13 +737,19 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks'
     | '/users'
+    | '/complete-profile/$userAcademyId/set-preferences/$academyId'
     | '/admin/academies/$academyId/dashboard/content'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
     | '/500'
+    | '/choose-academy'
+    | '/confirm-email'
     | '/otp'
+    | '/complete-profile/final-confirmation'
+    | '/complete-profile/personal-info'
+    | '/complete-profile/update-password'
     | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
@@ -619,6 +757,7 @@ export interface FileRouteTypes {
     | '/403'
     | '/404'
     | '/503'
+    | '/complete-profile/$userAcademyId/set-academy'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -629,13 +768,19 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
+    | '/complete-profile/$userAcademyId/set-preferences/$academyId'
     | '/admin/academies/$academyId/dashboard/content'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/(auth)/500'
+    | '/(auth)/choose-academy'
+    | '/(auth)/confirm-email'
     | '/(auth)/otp'
+    | '/complete-profile/final-confirmation'
+    | '/complete-profile/personal-info'
+    | '/complete-profile/update-password'
     | '/_authenticated/settings'
     | '/(auth)/forgot-password'
     | '/(auth)/sign-in'
@@ -645,6 +790,7 @@ export interface FileRouteTypes {
     | '/(errors)/404'
     | '/(errors)/500'
     | '/(errors)/503'
+    | '/complete-profile/$userAcademyId/set-academy'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
@@ -655,6 +801,7 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
+    | '/complete-profile/$userAcademyId/set-preferences/$academyId'
     | '/_authenticated/admin/academies/$academyId/dashboard/content'
   fileRoutesById: FileRoutesById
 }
@@ -663,7 +810,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   auth500Route: typeof auth500Route
+  authChooseAcademyRoute: typeof authChooseAcademyRoute
+  authConfirmEmailRoute: typeof authConfirmEmailRoute
   authOtpRoute: typeof authOtpRoute
+  CompleteProfileFinalConfirmationRoute: typeof CompleteProfileFinalConfirmationRoute
+  CompleteProfilePersonalInfoRoute: typeof CompleteProfilePersonalInfoRoute
+  CompleteProfileUpdatePasswordRoute: typeof CompleteProfileUpdatePasswordRoute
   authForgotPasswordLazyRoute: typeof authForgotPasswordLazyRoute
   authSignInLazyRoute: typeof authSignInLazyRoute
   authSignUpLazyRoute: typeof authSignUpLazyRoute
@@ -672,13 +824,20 @@ export interface RootRouteChildren {
   errors404LazyRoute: typeof errors404LazyRoute
   errors500LazyRoute: typeof errors500LazyRoute
   errors503LazyRoute: typeof errors503LazyRoute
+  CompleteProfileUserAcademyIdSetAcademyRoute: typeof CompleteProfileUserAcademyIdSetAcademyRoute
+  CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute: typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   auth500Route: auth500Route,
+  authChooseAcademyRoute: authChooseAcademyRoute,
+  authConfirmEmailRoute: authConfirmEmailRoute,
   authOtpRoute: authOtpRoute,
+  CompleteProfileFinalConfirmationRoute: CompleteProfileFinalConfirmationRoute,
+  CompleteProfilePersonalInfoRoute: CompleteProfilePersonalInfoRoute,
+  CompleteProfileUpdatePasswordRoute: CompleteProfileUpdatePasswordRoute,
   authForgotPasswordLazyRoute: authForgotPasswordLazyRoute,
   authSignInLazyRoute: authSignInLazyRoute,
   authSignUpLazyRoute: authSignUpLazyRoute,
@@ -687,6 +846,10 @@ const rootRouteChildren: RootRouteChildren = {
   errors404LazyRoute: errors404LazyRoute,
   errors500LazyRoute: errors500LazyRoute,
   errors503LazyRoute: errors503LazyRoute,
+  CompleteProfileUserAcademyIdSetAcademyRoute:
+    CompleteProfileUserAcademyIdSetAcademyRoute,
+  CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute:
+    CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute,
 }
 
 export const routeTree = rootRoute
@@ -702,7 +865,12 @@ export const routeTree = rootRoute
         "/",
         "/_authenticated",
         "/(auth)/500",
+        "/(auth)/choose-academy",
+        "/(auth)/confirm-email",
         "/(auth)/otp",
+        "/complete-profile/final-confirmation",
+        "/complete-profile/personal-info",
+        "/complete-profile/update-password",
         "/(auth)/forgot-password",
         "/(auth)/sign-in",
         "/(auth)/sign-up",
@@ -710,7 +878,9 @@ export const routeTree = rootRoute
         "/(errors)/403",
         "/(errors)/404",
         "/(errors)/500",
-        "/(errors)/503"
+        "/(errors)/503",
+        "/complete-profile/$userAcademyId/set-academy",
+        "/complete-profile/$userAcademyId/set-preferences/$academyId"
       ]
     },
     "/": {
@@ -731,8 +901,23 @@ export const routeTree = rootRoute
     "/(auth)/500": {
       "filePath": "(auth)/500.tsx"
     },
+    "/(auth)/choose-academy": {
+      "filePath": "(auth)/choose-academy.tsx"
+    },
+    "/(auth)/confirm-email": {
+      "filePath": "(auth)/confirm-email.tsx"
+    },
     "/(auth)/otp": {
       "filePath": "(auth)/otp.tsx"
+    },
+    "/complete-profile/final-confirmation": {
+      "filePath": "complete-profile/final-confirmation.tsx"
+    },
+    "/complete-profile/personal-info": {
+      "filePath": "complete-profile/personal-info.tsx"
+    },
+    "/complete-profile/update-password": {
+      "filePath": "complete-profile/update-password.tsx"
     },
     "/_authenticated/settings": {
       "filePath": "_authenticated/settings/route.lazy.tsx",
@@ -768,6 +953,9 @@ export const routeTree = rootRoute
     },
     "/(errors)/503": {
       "filePath": "(errors)/503.lazy.tsx"
+    },
+    "/complete-profile/$userAcademyId/set-academy": {
+      "filePath": "complete-profile/$userAcademyId/set-academy.tsx"
     },
     "/_authenticated/settings/account": {
       "filePath": "_authenticated/settings/account.lazy.tsx",
@@ -808,6 +996,9 @@ export const routeTree = rootRoute
     "/_authenticated/users/": {
       "filePath": "_authenticated/users/index.lazy.tsx",
       "parent": "/_authenticated"
+    },
+    "/complete-profile/$userAcademyId/set-preferences/$academyId": {
+      "filePath": "complete-profile/$userAcademyId/set-preferences/$academyId.tsx"
     },
     "/_authenticated/admin/academies/$academyId/dashboard/content": {
       "filePath": "_authenticated/admin/academies/$academyId/dashboard/content.tsx",

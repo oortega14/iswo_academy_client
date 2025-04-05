@@ -9,7 +9,7 @@ import {
   IconMail,
   IconLock,
 } from '@tabler/icons-react'
-import { useAuth } from '@/api/useAuth'
+import { useAuth } from '@/api/use-auth'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -61,24 +61,37 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
+    const response = await login(data)
 
-    try {
-      const result = await login({
-        email: data.user.email,
-        password: data.user.password,
-      })
-
-      if (result.success) {
-        toast.success('¡Inicio de sesión exitoso!')
-        navigate({ to: '/' })
+    if (response.success) {
+      toast.success('¡Inicio de sesión exitoso!')
+      if (!response.user.is_profile_completed) {
+        switch (response.user.wizard_step) {
+          case 'personal_info_step':
+            navigate({ to: '/complete-profile/personal-info' })
+            break;
+          case 'password_step':
+            navigate({ to: '/complete-profile/update-password' })
+            break;
+          case 'academy_selection_step':
+            navigate({ to: `/complete-profile/${response.user.user_academies[0].id}/set-academy` })
+            break;
+          case 'preferences_step':
+            navigate({ to: `/complete-profile/${response.user.user_academies[0].id}/set-preferences/${response.user.user_academies[0].academy_id}` })
+            break;
+          case 'confirmation_step':
+            navigate({ to: '/complete-profile/final-confirmation' })
+            break;
+          default:
+            break;
+        }
       } else {
-        toast.error('Error de inicio de sesión')
+        navigate({ to: '/choose-academy' })
       }
-    } catch (error) {
-      toast.error('Ocurrió un error. Por favor, inténtelo de nuevo.')
-    } finally {
-      setIsLoading(false)
+    } else {
+      toast.error(response.error)
     }
+    setIsLoading(false)
   }
 
   return (

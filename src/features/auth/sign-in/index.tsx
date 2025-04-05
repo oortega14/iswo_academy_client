@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion'
 import { UserAuthForm } from './components/user-auth-form'
+import { Separator } from '@/components/ui/separator'
+import { Link } from '@tanstack/react-router'
 
 export default function SignIn() {
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -90,6 +93,38 @@ export default function SignIn() {
             >
               <UserAuthForm />
             </motion.div>
+
+            <Separator />
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+              className="flex flex-col space-y-4 text-center text-sm"
+            >
+              <div className="flex justify-center space-x-4">
+                <Link
+                  to="/sign-up"
+                  className="text-sm text-primary hover:underline"
+                >
+                  ¿No tienes cuenta? Regístrate
+                </Link>
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-primary hover:underline"
+                >
+                  ¿Olvidaste tu contraseña?
+                </Link>
+              </div>
+              <Link
+                to="/"
+                className="text-sm text-muted-foreground hover:text-primary"
+              >
+                Volver al inicio
+              </Link>
+            </motion.div>
+
+            <Separator />
 
             <motion.p
               initial={{ opacity: 0, y: 10 }}
