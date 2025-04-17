@@ -10,7 +10,13 @@
     "preview": "vite preview",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "knip": "knip"
+    "knip": "knip",
+    "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml",
+    "docker:prod": "docker compose -f docker-compose.yml -f docker-compose.prod.yml",
+    "docker:dev:up": "npm run docker:dev -- up -d",
+    "docker:dev:down": "npm run docker:dev -- down",
+    "docker:prod:up": "npm run docker:prod -- up -d",
+    "docker:prod:down": "npm run docker:prod -- down"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
