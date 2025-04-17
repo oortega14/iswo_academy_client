@@ -22,6 +22,8 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { ErrorResponse } from '@/api/apiService'
+import { showErrorToasts } from '@/api/utils/errorHandling'
 
 type SignUpFormProps = HTMLAttributes<HTMLDivElement>
 
@@ -66,11 +68,11 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   async function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
     const response = await register(data)
-    if (response.success) {
+    if (response.success && response.data) {
       toast.success('¡Registro exitoso!')
       navigate({ to: '/sign-in' })
     } else {
-      toast.error(response.error)
+      showErrorToasts(response.error, 'Error en las credenciales de registro')
     }
     setIsLoading(false)
   }

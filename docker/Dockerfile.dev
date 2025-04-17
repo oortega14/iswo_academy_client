@@ -1,0 +1,20 @@
+# Dockerfile.dev
+FROM node:20-slim
+
+# Establecer el directorio de trabajo
+WORKDIR /app
+
+# Instalar pnpm globalmente
+RUN npm install -g pnpm
+
+# Copiar los archivos de configuración
+COPY package.json pnpm-lock.yaml ./
+
+# Instalar dependencias
+RUN pnpm install --frozen-lockfile
+
+# El COPY . . no es necesario aquí porque usamos volúmenes en desarrollo
+
+EXPOSE 5173
+
+CMD ["pnpm", "dev", "--host"]

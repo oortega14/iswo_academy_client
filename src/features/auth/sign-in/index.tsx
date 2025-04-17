@@ -1,10 +1,19 @@
-import { motion } from 'framer-motion'
-import { UserAuthForm } from './components/user-auth-form'
-import { Separator } from '@/components/ui/separator'
 import { Link } from '@tanstack/react-router'
+import { motion } from 'framer-motion'
+import { Separator } from '@/components/ui/separator'
+import { UserAuthForm } from './components/user-auth-form'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 export default function SignIn() {
-
+  useEffect(() => {
+    const authMessage = localStorage.getItem('auth_message')
+    if (authMessage === 'session_expired') {
+      toast.error('Sesión expirada, por favor inicia sesión nuevamente')
+      localStorage.removeItem('auth_message')
+    }
+  }, [])
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -31,7 +40,7 @@ export default function SignIn() {
               width={301}
               height={60}
               alt='Tu Academia'
-              className='mb-6 hover:animate-pulse invert'
+              className='mb-6 invert hover:animate-pulse'
             />
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -68,7 +77,7 @@ export default function SignIn() {
                 width={301}
                 height={60}
                 alt='Tu Academia'
-                className='w-48 sm:w-64 md:w-72 mb-8 hover:animate-pulse'
+                className='mb-8 w-48 hover:animate-pulse sm:w-64 md:w-72'
               />
             </motion.div>
 
@@ -100,25 +109,25 @@ export default function SignIn() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="flex flex-col space-y-4 text-center text-sm"
+              className='flex flex-col space-y-4 text-center text-sm'
             >
-              <div className="flex justify-center space-x-4">
+              <div className='flex justify-center space-x-4'>
                 <Link
-                  to="/sign-up"
-                  className="text-sm text-primary hover:underline"
+                  to='/sign-up'
+                  className='text-sm text-primary hover:underline'
                 >
                   ¿No tienes cuenta? Regístrate
                 </Link>
                 <Link
-                  to="/forgot-password"
-                  className="text-sm text-primary hover:underline"
+                  to='/forgot-password'
+                  className='text-sm text-primary hover:underline'
                 >
                   ¿Olvidaste tu contraseña?
                 </Link>
               </div>
               <Link
-                to="/"
-                className="text-sm text-muted-foreground hover:text-primary"
+                to='/'
+                className='text-sm text-muted-foreground hover:text-primary'
               >
                 Volver al inicio
               </Link>

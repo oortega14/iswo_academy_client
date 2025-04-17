@@ -1,11 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
-
+import AcademySelectionStep from '@/features/complete-profile/academy-selection-step'
 export const Route = createFileRoute(
   '/complete-profile/$userAcademyId/set-academy',
 )({
-  component: RouteComponent,
+  component: AcademySelectionStep,
 })
-
-function RouteComponent() {
-  return <div>Hello "/complete-profile/$userAcademyId/set-academy"!</div>
-}

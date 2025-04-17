@@ -5,7 +5,8 @@ import { useSearch } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { CheckCircle2, XCircle, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useAuth } from '@/api/use-auth'
+import { useAuth } from '@/api/hooks/use-auth'
+import { showErrorToasts } from '@/api/utils/errorHandling'
 
 export default function ConfirmEmail() {
   const { confirmation_token } = useSearch({ from: '/(auth)/confirm-email' })
@@ -21,11 +22,7 @@ export default function ConfirmEmail() {
         setMessage('¡Tu correo electrónico ha sido confirmado exitosamente!')
       } else {
         setStatus('error')
-        if (Array.isArray(response.error)) {
-          setMessage(response.error.join(', '))
-        } else {
-          setMessage(response.error)
-        }
+        showErrorToasts(response.error, 'Error en la confirmación de correo electrónico')
       }
     }
 

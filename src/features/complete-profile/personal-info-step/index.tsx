@@ -1,8 +1,10 @@
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import { Separator } from '@/components/ui/separator'
-import { Link } from '@tanstack/react-router'
+import WizardHeader from '../components/WizardHeader'
+import PersonalInfoForm from './PersonalInfoForm'
 
 export default function PersonalInfoStep() {
+  const formRef = useRef<HTMLFormElement>(null!)
 
   return (
     <motion.div
@@ -10,144 +12,21 @@ export default function PersonalInfoStep() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
+      className='px-6 py-8'
     >
-      <div className='container relative grid h-svh flex-col items-center justify-center lg:max-w-none lg:grid-cols-2 lg:px-0'>
-        <div className='relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex'>
-          <div className='absolute inset-0 bg-zinc-900' />
+      <WizardHeader />
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{
-              duration: 0.8,
-              ease: 'easeOut',
-              delay: 0.4,
-            }}
-            className='relative m-auto flex flex-col items-center text-center'
-          >
-            <img
-              src='/images/ISWO_LARGE.webp'
-              width={301}
-              height={60}
-              alt='Tu Academia'
-              className='mb-6 hover:animate-pulse invert'
-            />
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.8 }}
-              className='mt-6 max-w-md text-lg text-gray-200'
-            >
-              Transforma tu conocimiento en una experiencia educativa única. La
-              plataforma todo-en-uno para crear, gestionar y hacer crecer tu
-              academia online.
-            </motion.p>
-          </motion.div>
-        </div>
+      <div className='rounded-lg border bg-card p-6 shadow-sm'>
+        <h2 className='mb-6 text-2xl font-bold'>Completa tu perfil</h2>
+        <p className='mb-8 text-muted-foreground'>
+          Para comenzar a utilizar la plataforma, necesitamos algunos datos
+          personales. Esta información nos ayudará a personalizar tu
+          experiencia.
+        </p>
 
-        <div className='flex items-center justify-center p-4 lg:p-8'>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className='mx-auto flex w-full flex-col justify-center space-y-4 sm:w-[380px]'
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{
-                duration: 0.8,
-                ease: 'easeOut',
-                delay: 0.4,
-              }}
-              className='relative flex flex-col items-center text-center lg:hidden'
-            >
-              <img
-                src='/images/ISWO_LARGE.webp'
-                width={301}
-                height={60}
-                alt='Tu Academia'
-                className='w-48 sm:w-64 md:w-72 mb-8 hover:animate-pulse'
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className='flex flex-col space-y-3 text-left'
-            >
-              <h1 className='text-2xl font-semibold tracking-tight'>
-                Iniciar sesión
-              </h1>
-              <p className='text-sm text-muted-foreground'>
-                Ingresa tu correo electrónico y contraseña para iniciar sesión
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-            >
-            </motion.div>
-
-            <Separator />
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="flex flex-col space-y-4 text-center text-sm"
-            >
-              <div className="flex justify-center space-x-4">
-                <Link
-                  to="/sign-up"
-                  className="text-sm text-primary hover:underline"
-                >
-                  ¿No tienes cuenta? Regístrate
-                </Link>
-                <Link
-                  to="/forgot-password"
-                  className="text-sm text-primary hover:underline"
-                >
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </div>
-              <Link
-                to="/"
-                className="text-sm text-muted-foreground hover:text-primary"
-              >
-                Volver al inicio
-              </Link>
-            </motion.div>
-
-            <Separator />
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className='px-8 text-center text-sm text-muted-foreground'
-            >
-              Al iniciar sesión, aceptas nuestros{' '}
-              <a
-                href='/terms'
-                className='underline underline-offset-4 hover:text-primary'
-              >
-                Términos de servicio
-              </a>{' '}
-              y{' '}
-              <a
-                href='/privacy'
-                className='underline underline-offset-4 hover:text-primary'
-              >
-                Política de privacidad
-              </a>
-              .
-            </motion.p>
-          </motion.div>
-        </div>
+        <PersonalInfoForm
+          formRef={formRef}
+        />
       </div>
     </motion.div>
   )

@@ -16,8 +16,13 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as CompleteProfileUpdatePasswordImport } from './routes/complete-profile/update-password'
+import { Route as CompleteProfileSetAcademyImport } from './routes/complete-profile/set-academy'
+import { Route as CompleteProfilePreferencesImport } from './routes/complete-profile/preferences'
 import { Route as CompleteProfilePersonalInfoImport } from './routes/complete-profile/personal-info'
+import { Route as CompleteProfilePaymentMethodImport } from './routes/complete-profile/payment-method'
+import { Route as CompleteProfilePaymentInfoImport } from './routes/complete-profile/payment-info'
 import { Route as CompleteProfileFinalConfirmationImport } from './routes/complete-profile/final-confirmation'
+import { Route as CompleteProfileConfirmationImport } from './routes/complete-profile/confirmation'
 import { Route as authOtpImport } from './routes/(auth)/otp'
 import { Route as authConfirmEmailImport } from './routes/(auth)/confirm-email'
 import { Route as authChooseAcademyImport } from './routes/(auth)/choose-academy'
@@ -167,6 +172,20 @@ const CompleteProfileUpdatePasswordRoute =
     getParentRoute: () => rootRoute,
   } as any)
 
+const CompleteProfileSetAcademyRoute = CompleteProfileSetAcademyImport.update({
+  id: '/complete-profile/set-academy',
+  path: '/complete-profile/set-academy',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CompleteProfilePreferencesRoute = CompleteProfilePreferencesImport.update(
+  {
+    id: '/complete-profile/preferences',
+    path: '/complete-profile/preferences',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
 const CompleteProfilePersonalInfoRoute =
   CompleteProfilePersonalInfoImport.update({
     id: '/complete-profile/personal-info',
@@ -174,10 +193,32 @@ const CompleteProfilePersonalInfoRoute =
     getParentRoute: () => rootRoute,
   } as any)
 
+const CompleteProfilePaymentMethodRoute =
+  CompleteProfilePaymentMethodImport.update({
+    id: '/complete-profile/payment-method',
+    path: '/complete-profile/payment-method',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CompleteProfilePaymentInfoRoute = CompleteProfilePaymentInfoImport.update(
+  {
+    id: '/complete-profile/payment-info',
+    path: '/complete-profile/payment-info',
+    getParentRoute: () => rootRoute,
+  } as any,
+)
+
 const CompleteProfileFinalConfirmationRoute =
   CompleteProfileFinalConfirmationImport.update({
     id: '/complete-profile/final-confirmation',
     path: '/complete-profile/final-confirmation',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const CompleteProfileConfirmationRoute =
+  CompleteProfileConfirmationImport.update({
+    id: '/complete-profile/confirmation',
+    path: '/complete-profile/confirmation',
     getParentRoute: () => rootRoute,
   } as any)
 
@@ -375,6 +416,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authOtpImport
       parentRoute: typeof rootRoute
     }
+    '/complete-profile/confirmation': {
+      id: '/complete-profile/confirmation'
+      path: '/complete-profile/confirmation'
+      fullPath: '/complete-profile/confirmation'
+      preLoaderRoute: typeof CompleteProfileConfirmationImport
+      parentRoute: typeof rootRoute
+    }
     '/complete-profile/final-confirmation': {
       id: '/complete-profile/final-confirmation'
       path: '/complete-profile/final-confirmation'
@@ -382,11 +430,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompleteProfileFinalConfirmationImport
       parentRoute: typeof rootRoute
     }
+    '/complete-profile/payment-info': {
+      id: '/complete-profile/payment-info'
+      path: '/complete-profile/payment-info'
+      fullPath: '/complete-profile/payment-info'
+      preLoaderRoute: typeof CompleteProfilePaymentInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/payment-method': {
+      id: '/complete-profile/payment-method'
+      path: '/complete-profile/payment-method'
+      fullPath: '/complete-profile/payment-method'
+      preLoaderRoute: typeof CompleteProfilePaymentMethodImport
+      parentRoute: typeof rootRoute
+    }
     '/complete-profile/personal-info': {
       id: '/complete-profile/personal-info'
       path: '/complete-profile/personal-info'
       fullPath: '/complete-profile/personal-info'
       preLoaderRoute: typeof CompleteProfilePersonalInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/preferences': {
+      id: '/complete-profile/preferences'
+      path: '/complete-profile/preferences'
+      fullPath: '/complete-profile/preferences'
+      preLoaderRoute: typeof CompleteProfilePreferencesImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/set-academy': {
+      id: '/complete-profile/set-academy'
+      path: '/complete-profile/set-academy'
+      fullPath: '/complete-profile/set-academy'
+      preLoaderRoute: typeof CompleteProfileSetAcademyImport
       parentRoute: typeof rootRoute
     }
     '/complete-profile/update-password': {
@@ -613,8 +689,13 @@ export interface FileRoutesByFullPath {
   '/choose-academy': typeof authChooseAcademyRoute
   '/confirm-email': typeof authConfirmEmailRoute
   '/otp': typeof authOtpRoute
+  '/complete-profile/confirmation': typeof CompleteProfileConfirmationRoute
   '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
+  '/complete-profile/payment-info': typeof CompleteProfilePaymentInfoRoute
+  '/complete-profile/payment-method': typeof CompleteProfilePaymentMethodRoute
   '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
+  '/complete-profile/preferences': typeof CompleteProfilePreferencesRoute
+  '/complete-profile/set-academy': typeof CompleteProfileSetAcademyRoute
   '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
   '/settings': typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   '/forgot-password': typeof authForgotPasswordLazyRoute
@@ -646,8 +727,13 @@ export interface FileRoutesByTo {
   '/choose-academy': typeof authChooseAcademyRoute
   '/confirm-email': typeof authConfirmEmailRoute
   '/otp': typeof authOtpRoute
+  '/complete-profile/confirmation': typeof CompleteProfileConfirmationRoute
   '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
+  '/complete-profile/payment-info': typeof CompleteProfilePaymentInfoRoute
+  '/complete-profile/payment-method': typeof CompleteProfilePaymentMethodRoute
   '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
+  '/complete-profile/preferences': typeof CompleteProfilePreferencesRoute
+  '/complete-profile/set-academy': typeof CompleteProfileSetAcademyRoute
   '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/sign-in': typeof authSignInLazyRoute
@@ -679,8 +765,13 @@ export interface FileRoutesById {
   '/(auth)/choose-academy': typeof authChooseAcademyRoute
   '/(auth)/confirm-email': typeof authConfirmEmailRoute
   '/(auth)/otp': typeof authOtpRoute
+  '/complete-profile/confirmation': typeof CompleteProfileConfirmationRoute
   '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
+  '/complete-profile/payment-info': typeof CompleteProfilePaymentInfoRoute
+  '/complete-profile/payment-method': typeof CompleteProfilePaymentMethodRoute
   '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
+  '/complete-profile/preferences': typeof CompleteProfilePreferencesRoute
+  '/complete-profile/set-academy': typeof CompleteProfileSetAcademyRoute
   '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   '/(auth)/forgot-password': typeof authForgotPasswordLazyRoute
@@ -715,8 +806,13 @@ export interface FileRouteTypes {
     | '/choose-academy'
     | '/confirm-email'
     | '/otp'
+    | '/complete-profile/confirmation'
     | '/complete-profile/final-confirmation'
+    | '/complete-profile/payment-info'
+    | '/complete-profile/payment-method'
     | '/complete-profile/personal-info'
+    | '/complete-profile/preferences'
+    | '/complete-profile/set-academy'
     | '/complete-profile/update-password'
     | '/settings'
     | '/forgot-password'
@@ -747,8 +843,13 @@ export interface FileRouteTypes {
     | '/choose-academy'
     | '/confirm-email'
     | '/otp'
+    | '/complete-profile/confirmation'
     | '/complete-profile/final-confirmation'
+    | '/complete-profile/payment-info'
+    | '/complete-profile/payment-method'
     | '/complete-profile/personal-info'
+    | '/complete-profile/preferences'
+    | '/complete-profile/set-academy'
     | '/complete-profile/update-password'
     | '/forgot-password'
     | '/sign-in'
@@ -778,8 +879,13 @@ export interface FileRouteTypes {
     | '/(auth)/choose-academy'
     | '/(auth)/confirm-email'
     | '/(auth)/otp'
+    | '/complete-profile/confirmation'
     | '/complete-profile/final-confirmation'
+    | '/complete-profile/payment-info'
+    | '/complete-profile/payment-method'
     | '/complete-profile/personal-info'
+    | '/complete-profile/preferences'
+    | '/complete-profile/set-academy'
     | '/complete-profile/update-password'
     | '/_authenticated/settings'
     | '/(auth)/forgot-password'
@@ -813,8 +919,13 @@ export interface RootRouteChildren {
   authChooseAcademyRoute: typeof authChooseAcademyRoute
   authConfirmEmailRoute: typeof authConfirmEmailRoute
   authOtpRoute: typeof authOtpRoute
+  CompleteProfileConfirmationRoute: typeof CompleteProfileConfirmationRoute
   CompleteProfileFinalConfirmationRoute: typeof CompleteProfileFinalConfirmationRoute
+  CompleteProfilePaymentInfoRoute: typeof CompleteProfilePaymentInfoRoute
+  CompleteProfilePaymentMethodRoute: typeof CompleteProfilePaymentMethodRoute
   CompleteProfilePersonalInfoRoute: typeof CompleteProfilePersonalInfoRoute
+  CompleteProfilePreferencesRoute: typeof CompleteProfilePreferencesRoute
+  CompleteProfileSetAcademyRoute: typeof CompleteProfileSetAcademyRoute
   CompleteProfileUpdatePasswordRoute: typeof CompleteProfileUpdatePasswordRoute
   authForgotPasswordLazyRoute: typeof authForgotPasswordLazyRoute
   authSignInLazyRoute: typeof authSignInLazyRoute
@@ -835,8 +946,13 @@ const rootRouteChildren: RootRouteChildren = {
   authChooseAcademyRoute: authChooseAcademyRoute,
   authConfirmEmailRoute: authConfirmEmailRoute,
   authOtpRoute: authOtpRoute,
+  CompleteProfileConfirmationRoute: CompleteProfileConfirmationRoute,
   CompleteProfileFinalConfirmationRoute: CompleteProfileFinalConfirmationRoute,
+  CompleteProfilePaymentInfoRoute: CompleteProfilePaymentInfoRoute,
+  CompleteProfilePaymentMethodRoute: CompleteProfilePaymentMethodRoute,
   CompleteProfilePersonalInfoRoute: CompleteProfilePersonalInfoRoute,
+  CompleteProfilePreferencesRoute: CompleteProfilePreferencesRoute,
+  CompleteProfileSetAcademyRoute: CompleteProfileSetAcademyRoute,
   CompleteProfileUpdatePasswordRoute: CompleteProfileUpdatePasswordRoute,
   authForgotPasswordLazyRoute: authForgotPasswordLazyRoute,
   authSignInLazyRoute: authSignInLazyRoute,
@@ -868,8 +984,13 @@ export const routeTree = rootRoute
         "/(auth)/choose-academy",
         "/(auth)/confirm-email",
         "/(auth)/otp",
+        "/complete-profile/confirmation",
         "/complete-profile/final-confirmation",
+        "/complete-profile/payment-info",
+        "/complete-profile/payment-method",
         "/complete-profile/personal-info",
+        "/complete-profile/preferences",
+        "/complete-profile/set-academy",
         "/complete-profile/update-password",
         "/(auth)/forgot-password",
         "/(auth)/sign-in",
@@ -910,11 +1031,26 @@ export const routeTree = rootRoute
     "/(auth)/otp": {
       "filePath": "(auth)/otp.tsx"
     },
+    "/complete-profile/confirmation": {
+      "filePath": "complete-profile/confirmation.tsx"
+    },
     "/complete-profile/final-confirmation": {
       "filePath": "complete-profile/final-confirmation.tsx"
     },
+    "/complete-profile/payment-info": {
+      "filePath": "complete-profile/payment-info.tsx"
+    },
+    "/complete-profile/payment-method": {
+      "filePath": "complete-profile/payment-method.tsx"
+    },
     "/complete-profile/personal-info": {
       "filePath": "complete-profile/personal-info.tsx"
+    },
+    "/complete-profile/preferences": {
+      "filePath": "complete-profile/preferences.tsx"
+    },
+    "/complete-profile/set-academy": {
+      "filePath": "complete-profile/set-academy.tsx"
     },
     "/complete-profile/update-password": {
       "filePath": "complete-profile/update-password.tsx"

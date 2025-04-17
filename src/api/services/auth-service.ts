@@ -1,4 +1,5 @@
-import api from '../axiosClient'
+import { apiService, type ApiResponse } from '@/api'
+import { AuthUser } from '@/stores/authStore'
 
 export interface LoginCredentials {
   user: {
@@ -17,29 +18,34 @@ export interface RegisterCredentials {
   }
 }
 
+export interface AuthResponse {
+  access_token: string
+  refresh_token: string
+  user: AuthUser
+}
+
 export const authService = {
-  login: async (credentials: LoginCredentials) => {
-    const response = await api.post('/users/sign_in', credentials)
-    return response.data
+  register: (credentials: RegisterCredentials): Promise<ApiResponse<AuthResponse>> => {
+    return apiService.create<AuthResponse, RegisterCredentials>('/users', credentials)
   },
-  register: async (credentials: RegisterCredentials) => {
-    const response = await api.post('/users', credentials)
-    return response.data
+
+  login: (credentials: LoginCredentials): Promise<ApiResponse<AuthResponse>> => {
+    return apiService.create<AuthResponse, LoginCredentials>('/users/sign_in', credentials)
   },
-  logout: async () => {
-    const response = await api.post('/users/sign_out')
-    return response.data
+
+  logout: (): Promise<ApiResponse<any>> => {
+    return apiService.create<any>('/users/sign_out', {})
   },
-  confirmEmail: async (token: string) => {
-    const response = await api.post(`/users/confirmation`, { confirmation_token: token })
-    return response.data
+
+  confirmEmail: (token: string): Promise<ApiResponse<any>> => {
+    return apiService.create<any>('/users/confirmation', { confirmation_token: token })
   },
-  refresh: async (refreshToken: string) => {
-    const response = await api.post('/users/refresh', { refresh_token: refreshToken })
-    return response.data
+
+  refresh: (refreshToken: string): Promise<ApiResponse<AuthResponse>> => {
+    return apiService.create<AuthResponse>('/users/refresh', { refresh_token: refreshToken })
   },
-  setActiveAcademy: async (academyId: string) => {
-    const response = await api.post(`/users/set_active_academy`, { academy_id: academyId })
-    return response.data
+
+  setActiveAcademy: (academyId: string): Promise<ApiResponse<any>> => {
+    return apiService.create<any>('/users/set_active_academy', { academy_id: academyId })
   }
 }

@@ -3,7 +3,6 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { toast } from '@/hooks/use-toast'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -26,6 +25,7 @@ import { PasswordInput } from '@/components/password-input'
 import { SelectDropdown } from '@/components/select-dropdown'
 import { userTypes } from '../data/data'
 import { User } from '../data/schema'
+import { toast } from 'sonner'
 
 const formSchema = z
   .object({
@@ -119,8 +119,7 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: Props) {
 
   const onSubmit = (values: UserForm) => {
     form.reset()
-    toast({
-      title: 'You submitted the following values:',
+    toast.success('You submitted the following values:', {
       description: (
         <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
           <code className='text-white'>{JSON.stringify(values, null, 2)}</code>
