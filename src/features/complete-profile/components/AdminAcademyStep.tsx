@@ -32,7 +32,7 @@ const AdminAcademyStep = () => {
             <Button
               onClick={() => {
                 navigate({
-                  to: `/user/complete-profile/${userAcademyId}/set-academy/success`,
+                  to: `/complete-profile/${userAcademyId}/set-academy/success`,
                 })
               }}
               className='w-full'
