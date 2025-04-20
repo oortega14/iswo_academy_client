@@ -3,11 +3,14 @@ import { createFileRoute } from '@tanstack/react-router'
 export const Route = createFileRoute(
   '/complete-profile/$userAcademyId/set-academy/success',
 )({
-  component: RouteComponent2,
+  component: Success
 })
 
-function RouteComponent2() {
+function Success() {
   return (
-    <div>hola jajja!</div>
+    <div className="p-4">
+      <h1>¡Éxito!</h1>
+      <div>hola jajja!</div>
+    </div>
   )
 }

@@ -25,6 +25,7 @@ import { Route as authConfirmEmailImport } from './routes/(auth)/confirm-email'
 import { Route as authChooseAcademyImport } from './routes/(auth)/choose-academy'
 import { Route as auth500Import } from './routes/(auth)/500'
 import { Route as CompleteProfileUserAcademyIdSetAcademyImport } from './routes/complete-profile/$userAcademyId/set-academy'
+import { Route as CompleteProfileUserAcademyIdAdminPaymentImport } from './routes/complete-profile/$userAcademyId/admin-payment'
 import { Route as CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport } from './routes/complete-profile/$userAcademyId/set-preferences/$academyId'
 import { Route as CompleteProfileUserAcademyIdSetAcademySuccessImport } from './routes/complete-profile/$userAcademyId/set-academy/success'
 import { Route as AuthenticatedAdminAcademiesAcademyIdDashboardContentImport } from './routes/_authenticated/admin/academies/$academyId/dashboard/content'
@@ -333,6 +334,13 @@ const CompleteProfileUserAcademyIdSetAcademyRoute =
     getParentRoute: () => rootRoute,
   } as any)
 
+const CompleteProfileUserAcademyIdAdminPaymentRoute =
+  CompleteProfileUserAcademyIdAdminPaymentImport.update({
+    id: '/complete-profile/$userAcademyId/admin-payment',
+    path: '/complete-profile/$userAcademyId/admin-payment',
+    getParentRoute: () => rootRoute,
+  } as any)
+
 const CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute =
   CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport.update({
     id: '/complete-profile/$userAcademyId/set-preferences/$academyId',
@@ -496,6 +504,13 @@ declare module '@tanstack/react-router' {
       path: '/503'
       fullPath: '/503'
       preLoaderRoute: typeof errors503LazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/complete-profile/$userAcademyId/admin-payment': {
+      id: '/complete-profile/$userAcademyId/admin-payment'
+      path: '/complete-profile/$userAcademyId/admin-payment'
+      fullPath: '/complete-profile/$userAcademyId/admin-payment'
+      preLoaderRoute: typeof CompleteProfileUserAcademyIdAdminPaymentImport
       parentRoute: typeof rootRoute
     }
     '/complete-profile/$userAcademyId/set-academy': {
@@ -687,6 +702,7 @@ export interface FileRoutesByFullPath {
   '/403': typeof errors403LazyRoute
   '/404': typeof errors404LazyRoute
   '/503': typeof errors503LazyRoute
+  '/complete-profile/$userAcademyId/admin-payment': typeof CompleteProfileUserAcademyIdAdminPaymentRoute
   '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   '/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
@@ -722,6 +738,7 @@ export interface FileRoutesByTo {
   '/403': typeof errors403LazyRoute
   '/404': typeof errors404LazyRoute
   '/503': typeof errors503LazyRoute
+  '/complete-profile/$userAcademyId/admin-payment': typeof CompleteProfileUserAcademyIdAdminPaymentRoute
   '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   '/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
@@ -760,6 +777,7 @@ export interface FileRoutesById {
   '/(errors)/404': typeof errors404LazyRoute
   '/(errors)/500': typeof errors500LazyRoute
   '/(errors)/503': typeof errors503LazyRoute
+  '/complete-profile/$userAcademyId/admin-payment': typeof CompleteProfileUserAcademyIdAdminPaymentRoute
   '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
@@ -798,6 +816,7 @@ export interface FileRouteTypes {
     | '/403'
     | '/404'
     | '/503'
+    | '/complete-profile/$userAcademyId/admin-payment'
     | '/complete-profile/$userAcademyId/set-academy'
     | '/settings/account'
     | '/settings/appearance'
@@ -832,6 +851,7 @@ export interface FileRouteTypes {
     | '/403'
     | '/404'
     | '/503'
+    | '/complete-profile/$userAcademyId/admin-payment'
     | '/complete-profile/$userAcademyId/set-academy'
     | '/settings/account'
     | '/settings/appearance'
@@ -868,6 +888,7 @@ export interface FileRouteTypes {
     | '/(errors)/404'
     | '/(errors)/500'
     | '/(errors)/503'
+    | '/complete-profile/$userAcademyId/admin-payment'
     | '/complete-profile/$userAcademyId/set-academy'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
@@ -905,6 +926,7 @@ export interface RootRouteChildren {
   errors404LazyRoute: typeof errors404LazyRoute
   errors500LazyRoute: typeof errors500LazyRoute
   errors503LazyRoute: typeof errors503LazyRoute
+  CompleteProfileUserAcademyIdAdminPaymentRoute: typeof CompleteProfileUserAcademyIdAdminPaymentRoute
   CompleteProfileUserAcademyIdSetAcademyRoute: typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute: typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
 }
@@ -929,6 +951,8 @@ const rootRouteChildren: RootRouteChildren = {
   errors404LazyRoute: errors404LazyRoute,
   errors500LazyRoute: errors500LazyRoute,
   errors503LazyRoute: errors503LazyRoute,
+  CompleteProfileUserAcademyIdAdminPaymentRoute:
+    CompleteProfileUserAcademyIdAdminPaymentRoute,
   CompleteProfileUserAcademyIdSetAcademyRoute:
     CompleteProfileUserAcademyIdSetAcademyRouteWithChildren,
   CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute:
@@ -964,6 +988,7 @@ export const routeTree = rootRoute
         "/(errors)/404",
         "/(errors)/500",
         "/(errors)/503",
+        "/complete-profile/$userAcademyId/admin-payment",
         "/complete-profile/$userAcademyId/set-academy",
         "/complete-profile/$userAcademyId/set-preferences/$academyId"
       ]
@@ -1044,6 +1069,9 @@ export const routeTree = rootRoute
     },
     "/(errors)/503": {
       "filePath": "(errors)/503.lazy.tsx"
+    },
+    "/complete-profile/$userAcademyId/admin-payment": {
+      "filePath": "complete-profile/$userAcademyId/admin-payment.tsx"
     },
     "/complete-profile/$userAcademyId/set-academy": {
       "filePath": "complete-profile/$userAcademyId/set-academy.tsx",
