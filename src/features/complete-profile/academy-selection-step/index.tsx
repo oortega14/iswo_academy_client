@@ -10,10 +10,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import AdminAcademyStep from '../components/AdminAcademyStep'
-import ProfessorAcademyStep from '../components/ProfessorAcademyStep'
-import StudentAcademyStep from '../components/StudentAcademyStep'
-import WizardHeader from '../components/WizardHeader'
+import AdminAcademyStep from '@/features/onboarding/components/AdminAcademyStep'
+import ProfessorAcademyStep from '@/features/onboarding/components/ProfessorAcademyStep'
+import StudentAcademyStep from '@/features/onboarding/components/StudentAcademyStep'
+import WizardHeader from '@/features/onboarding/components/WizardHeader'
 
 const AcademySelectionStep = () => {
   const [loading, setLoading] = useState(false)

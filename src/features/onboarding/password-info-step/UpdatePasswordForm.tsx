@@ -2,7 +2,7 @@ import React, { RefObject, useEffect, useRef, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button.tsx';
 import {
   Form,
   FormControl,
@@ -10,21 +10,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from '@/components/ui/form.tsx';
+import { Input } from '@/components/ui/input.tsx';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/components/ui/select.tsx';
 import { IconLock, IconUser, IconUpload, IconUserCircle } from '@tabler/icons-react';
-import { passwordStrength } from '../components/PasswordStrength';
+import { passwordStrength } from '@/features/onboarding/components/PasswordStrength.tsx';
 import { toast } from 'sonner';
-import { useCompleteProfile } from '@/api/hooks/use-complete-profile';
-import { useAuthStore } from '@/stores/authStore';
-import UploadDialog from '@/features/shared/upload-dialog';
+import { useCompleteProfile } from '@/api/hooks/use-complete-profile.ts';
+import { useAuthStore } from '@/stores/authStore.ts';
+import UploadDialog from '@/features/shared/upload-dialog.tsx';
 import { useNavigate } from '@tanstack/react-router';
 
 
@@ -61,7 +61,7 @@ export const passwordStepSchema = z.object({
 
 // Añadir la interfaz para el tipo de respuesta
 interface ProfileResponse {
-  user_academies: { id: string | number }[];
+  user_academies: { id: string | number, role: string, academy_id: number | null }[];
 }
 
 const UpdatePasswordForm = ({ formRef }: { 
@@ -148,7 +148,14 @@ const UpdatePasswordForm = ({ formRef }: {
         String(data.user.user_academies_attributes[0].academy_id)
       );
     }
-    newFormData.append('user[wizard_step]', 'academy_selection_step');
+    if (data.user.user_academies_attributes[0].role === 'admin') {
+      newFormData.append('user[wizard_step]', 'admin_payment_info_step');
+    } else if (data.user.user_academies_attributes[0].role === 'professor'){
+      newFormData.append('user[wizard_step]', 'teacher_academy_request_step');
+    } else {
+      newFormData.append('user[wizard_step]', 'student_academy_selection_step');
+    }
+
 
     if (data.user.profile_picture instanceof File) {
       newFormData.append('user[profile_picture]', data.user.profile_picture);
@@ -169,12 +176,14 @@ const UpdatePasswordForm = ({ formRef }: {
     if (response.success) {
       toast.success('Perfil actualizado correctamente');
       const responseData = response.data as ProfileResponse;
-      navigate({
-        to: `/complete-profile/${responseData.user_academies[0].id}/set-academy`,
-        params: {
-          userAcademyId: String(responseData.user_academies[0].id)
-        }
-      });
+      if (responseData.user_academies[0].role === 'admin') {
+        navigate({
+          to: `/onboarding/${responseData.user_academies[0].id}/admin/payment-info`,
+          params: {
+            userAcademyId: String(responseData.user_academies[0].id)
+          }
+        });
+      }
     } else {
       toast.error(response.error);
       setIsUploading(false);

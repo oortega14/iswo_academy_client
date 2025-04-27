@@ -28,7 +28,6 @@ export class ApiService {
 
   // Método genérico para manejar los errores
   private handleError(error: any): ApiResponse<any> {
-    console.error('Error en la petición:', error);
     const errorResponse = formatAxiosError(error as AxiosError | AxiosErrorResponse);
     return {
       data: null,

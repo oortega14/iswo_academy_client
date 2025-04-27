@@ -1,11 +1,9 @@
 import { RefObject, useEffect, useState } from 'react'
 import { z } from 'zod'
-import { format } from 'date-fns'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { IconCalendar, IconPlus, IconTrash } from '@tabler/icons-react'
-import { es } from 'date-fns/locale'
-import { Button } from '@/components/ui/button'
+import {  IconPlus, IconTrash } from '@tabler/icons-react'
+import { Button } from '@/components/ui/button.tsx'
 import {
   Form,
   FormControl,
@@ -13,20 +11,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+} from '@/components/ui/form.tsx'
+import { Input } from '@/components/ui/input.tsx'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui/select.tsx'
 import { toast } from 'sonner'
-import { WIZARD_ROUTES } from '../config/wizard-routes'
-import { useCompleteProfile } from '@/api/hooks/use-complete-profile'
-import { useAuthStore } from '@/stores/authStore'
+import { COMMON_WIZARD_ROUTES } from '@/features/onboarding/config/wizard-routes.ts'
+import { useCompleteProfile } from '@/api/hooks/use-complete-profile.ts'
+import { useAuthStore } from '@/stores/authStore.ts'
 import { useNavigate } from '@tanstack/react-router'
+import { DateInputField } from '@/features/onboarding/personal-info-step/DateInputField.tsx'
 
 // Esquemas de validación
 const socialNetworkSchema = z.object({
@@ -169,7 +168,7 @@ export default function PersonalInfoForm({
     const response = await updatePersonalInfo(user?.id?.toString() || '', data);
     if (response.success) {
       toast.success('Datos actualizados correctamente');
-      navigate({ to: WIZARD_ROUTES['update-password'].path })
+      navigate({ to: COMMON_WIZARD_ROUTES['password_step'].path })
     } else {
       toast.error(response.error)
     }
@@ -307,63 +306,8 @@ export default function PersonalInfoForm({
 
             <FormField
               control={form.control}
-              name='user.user_detail_attributes.birth_date'
-              render={({ field }) => {
-                // Estado local para manejar el texto del input
-                const [inputValue, setInputValue] = useState(
-                  field.value ? format(new Date(field.value), 'dd/MM/yyyy') : ''
-                );
-                
-                return (
-                  <FormItem>
-                    <FormLabel>Fecha de nacimiento</FormLabel>
-                    <FormControl>
-                      <div className="relative w-full">
-                        <Input
-                          placeholder="31/12/1990"
-                          value={inputValue}
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            
-
-                            if (!/^[0-9/]*$/.test(value)) {
-                              return;
-                            }
-                            
-                            let formattedValue = value;
-                            if (value.length === 2 && !value.includes('/')) {
-                              formattedValue = value + '/';
-                            } else if (value.length === 5 && value.charAt(2) === '/' && !value.includes('/', 3)) {
-                              formattedValue = value + '/';
-                            }
-                            
-                            setInputValue(formattedValue);
-                            
-                            if (/^\d{2}\/\d{2}\/\d{4}$/.test(formattedValue)) {
-                              try {
-                                const [day, month, year] = formattedValue.split('/');
-                                const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-                                
-                                if (date instanceof Date && !isNaN(date.getTime())) {
-                                  field.onChange(format(date, 'yyyy-MM-dd'));
-                                }
-                              } catch (error) {
-                              }
-                            } else {
-                            }
-                          }}
-                          className="w-full"
-                        />
-                        <IconCalendar className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 opacity-50 pointer-events-none' />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Ingresa tu fecha de nacimiento en formato día/mes/año (Ejemplo: 31/12/1990)
-                    </p>
-                  </FormItem>
-                );
-              }}
+              name="user.user_detail_attributes.birth_date"
+              render={({ field }) => <DateInputField field={field} />}
             />
           </div>
         </div>

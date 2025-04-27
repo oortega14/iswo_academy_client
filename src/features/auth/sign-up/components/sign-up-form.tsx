@@ -22,7 +22,6 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { ErrorResponse } from '@/api/apiService'
 import { showErrorToasts } from '@/api/utils/errorHandling'
 
 type SignUpFormProps = HTMLAttributes<HTMLDivElement>

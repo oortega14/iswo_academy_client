@@ -15,19 +15,22 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated/route'
 import { Route as IndexImport } from './routes/index'
-import { Route as CompleteProfileUpdatePasswordImport } from './routes/complete-profile/update-password'
-import { Route as CompleteProfilePersonalInfoImport } from './routes/complete-profile/personal-info'
-import { Route as CompleteProfilePaymentInfoImport } from './routes/complete-profile/payment-info'
-import { Route as CompleteProfileFinalConfirmationImport } from './routes/complete-profile/final-confirmation'
-import { Route as CompleteProfileConfirmationImport } from './routes/complete-profile/confirmation'
+import { Route as OnboardingPersonalInfoImport } from './routes/onboarding/personal-info'
+import { Route as OnboardingPasswordInfoImport } from './routes/onboarding/password-info'
 import { Route as authOtpImport } from './routes/(auth)/otp'
 import { Route as authConfirmEmailImport } from './routes/(auth)/confirm-email'
 import { Route as authChooseAcademyImport } from './routes/(auth)/choose-academy'
 import { Route as auth500Import } from './routes/(auth)/500'
-import { Route as CompleteProfileUserAcademyIdSetAcademyImport } from './routes/complete-profile/$userAcademyId/set-academy'
-import { Route as CompleteProfileUserAcademyIdAdminPaymentImport } from './routes/complete-profile/$userAcademyId/admin-payment'
-import { Route as CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport } from './routes/complete-profile/$userAcademyId/set-preferences/$academyId'
-import { Route as CompleteProfileUserAcademyIdSetAcademySuccessImport } from './routes/complete-profile/$userAcademyId/set-academy/success'
+import { Route as OnboardingUserAcademyIdTeacherFinalConfirmationImport } from './routes/onboarding/$userAcademyId/teacher/final-confirmation'
+import { Route as OnboardingUserAcademyIdTeacherAcademyRequestImport } from './routes/onboarding/$userAcademyId/teacher/academy-request'
+import { Route as OnboardingUserAcademyIdStudentJoinAcademyImport } from './routes/onboarding/$userAcademyId/student/join-academy'
+import { Route as OnboardingUserAcademyIdStudentFinalConfirmationImport } from './routes/onboarding/$userAcademyId/student/final-confirmation'
+import { Route as OnboardingUserAcademyIdAdminPaymentSuccessImport } from './routes/onboarding/$userAcademyId/admin/payment-success'
+import { Route as OnboardingUserAcademyIdAdminPaymentInfoImport } from './routes/onboarding/$userAcademyId/admin/payment-info'
+import { Route as OnboardingUserAcademyIdAdminPaymentFailedImport } from './routes/onboarding/$userAcademyId/admin/payment-failed'
+import { Route as OnboardingUserAcademyIdAdminFinalConfirmationImport } from './routes/onboarding/$userAcademyId/admin/final-confirmation'
+import { Route as OnboardingUserAcademyIdAdminCreateAcademyImport } from './routes/onboarding/$userAcademyId/admin/create-academy'
+import { Route as OnboardingUserAcademyIdAdminAcademyPreferencesImport } from './routes/onboarding/$userAcademyId/admin/academy-preferences'
 import { Route as AuthenticatedAdminAcademiesAcademyIdDashboardContentImport } from './routes/_authenticated/admin/academies/$academyId/dashboard/content'
 
 // Create Virtual Routes
@@ -164,41 +167,17 @@ const AuthenticatedSettingsRouteLazyRoute =
     import('./routes/_authenticated/settings/route.lazy').then((d) => d.Route),
   )
 
-const CompleteProfileUpdatePasswordRoute =
-  CompleteProfileUpdatePasswordImport.update({
-    id: '/complete-profile/update-password',
-    path: '/complete-profile/update-password',
-    getParentRoute: () => rootRoute,
-  } as any)
+const OnboardingPersonalInfoRoute = OnboardingPersonalInfoImport.update({
+  id: '/onboarding/personal-info',
+  path: '/onboarding/personal-info',
+  getParentRoute: () => rootRoute,
+} as any)
 
-const CompleteProfilePersonalInfoRoute =
-  CompleteProfilePersonalInfoImport.update({
-    id: '/complete-profile/personal-info',
-    path: '/complete-profile/personal-info',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const CompleteProfilePaymentInfoRoute = CompleteProfilePaymentInfoImport.update(
-  {
-    id: '/complete-profile/payment-info',
-    path: '/complete-profile/payment-info',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
-const CompleteProfileFinalConfirmationRoute =
-  CompleteProfileFinalConfirmationImport.update({
-    id: '/complete-profile/final-confirmation',
-    path: '/complete-profile/final-confirmation',
-    getParentRoute: () => rootRoute,
-  } as any)
-
-const CompleteProfileConfirmationRoute =
-  CompleteProfileConfirmationImport.update({
-    id: '/complete-profile/confirmation',
-    path: '/complete-profile/confirmation',
-    getParentRoute: () => rootRoute,
-  } as any)
+const OnboardingPasswordInfoRoute = OnboardingPasswordInfoImport.update({
+  id: '/onboarding/password-info',
+  path: '/onboarding/password-info',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const authOtpRoute = authOtpImport.update({
   id: '/(auth)/otp',
@@ -327,32 +306,74 @@ const AuthenticatedSettingsAccountLazyRoute =
     ),
   )
 
-const CompleteProfileUserAcademyIdSetAcademyRoute =
-  CompleteProfileUserAcademyIdSetAcademyImport.update({
-    id: '/complete-profile/$userAcademyId/set-academy',
-    path: '/complete-profile/$userAcademyId/set-academy',
+const OnboardingUserAcademyIdTeacherFinalConfirmationRoute =
+  OnboardingUserAcademyIdTeacherFinalConfirmationImport.update({
+    id: '/onboarding/$userAcademyId/teacher/final-confirmation',
+    path: '/onboarding/$userAcademyId/teacher/final-confirmation',
     getParentRoute: () => rootRoute,
   } as any)
 
-const CompleteProfileUserAcademyIdAdminPaymentRoute =
-  CompleteProfileUserAcademyIdAdminPaymentImport.update({
-    id: '/complete-profile/$userAcademyId/admin-payment',
-    path: '/complete-profile/$userAcademyId/admin-payment',
+const OnboardingUserAcademyIdTeacherAcademyRequestRoute =
+  OnboardingUserAcademyIdTeacherAcademyRequestImport.update({
+    id: '/onboarding/$userAcademyId/teacher/academy-request',
+    path: '/onboarding/$userAcademyId/teacher/academy-request',
     getParentRoute: () => rootRoute,
   } as any)
 
-const CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute =
-  CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport.update({
-    id: '/complete-profile/$userAcademyId/set-preferences/$academyId',
-    path: '/complete-profile/$userAcademyId/set-preferences/$academyId',
+const OnboardingUserAcademyIdStudentJoinAcademyRoute =
+  OnboardingUserAcademyIdStudentJoinAcademyImport.update({
+    id: '/onboarding/$userAcademyId/student/join-academy',
+    path: '/onboarding/$userAcademyId/student/join-academy',
     getParentRoute: () => rootRoute,
   } as any)
 
-const CompleteProfileUserAcademyIdSetAcademySuccessRoute =
-  CompleteProfileUserAcademyIdSetAcademySuccessImport.update({
-    id: '/success',
-    path: '/success',
-    getParentRoute: () => CompleteProfileUserAcademyIdSetAcademyRoute,
+const OnboardingUserAcademyIdStudentFinalConfirmationRoute =
+  OnboardingUserAcademyIdStudentFinalConfirmationImport.update({
+    id: '/onboarding/$userAcademyId/student/final-confirmation',
+    path: '/onboarding/$userAcademyId/student/final-confirmation',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const OnboardingUserAcademyIdAdminPaymentSuccessRoute =
+  OnboardingUserAcademyIdAdminPaymentSuccessImport.update({
+    id: '/onboarding/$userAcademyId/admin/payment-success',
+    path: '/onboarding/$userAcademyId/admin/payment-success',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const OnboardingUserAcademyIdAdminPaymentInfoRoute =
+  OnboardingUserAcademyIdAdminPaymentInfoImport.update({
+    id: '/onboarding/$userAcademyId/admin/payment-info',
+    path: '/onboarding/$userAcademyId/admin/payment-info',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const OnboardingUserAcademyIdAdminPaymentFailedRoute =
+  OnboardingUserAcademyIdAdminPaymentFailedImport.update({
+    id: '/onboarding/$userAcademyId/admin/payment-failed',
+    path: '/onboarding/$userAcademyId/admin/payment-failed',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const OnboardingUserAcademyIdAdminFinalConfirmationRoute =
+  OnboardingUserAcademyIdAdminFinalConfirmationImport.update({
+    id: '/onboarding/$userAcademyId/admin/final-confirmation',
+    path: '/onboarding/$userAcademyId/admin/final-confirmation',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const OnboardingUserAcademyIdAdminCreateAcademyRoute =
+  OnboardingUserAcademyIdAdminCreateAcademyImport.update({
+    id: '/onboarding/$userAcademyId/admin/create-academy',
+    path: '/onboarding/$userAcademyId/admin/create-academy',
+    getParentRoute: () => rootRoute,
+  } as any)
+
+const OnboardingUserAcademyIdAdminAcademyPreferencesRoute =
+  OnboardingUserAcademyIdAdminAcademyPreferencesImport.update({
+    id: '/onboarding/$userAcademyId/admin/academy-preferences',
+    path: '/onboarding/$userAcademyId/admin/academy-preferences',
+    getParentRoute: () => rootRoute,
   } as any)
 
 const AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute =
@@ -408,39 +429,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authOtpImport
       parentRoute: typeof rootRoute
     }
-    '/complete-profile/confirmation': {
-      id: '/complete-profile/confirmation'
-      path: '/complete-profile/confirmation'
-      fullPath: '/complete-profile/confirmation'
-      preLoaderRoute: typeof CompleteProfileConfirmationImport
+    '/onboarding/password-info': {
+      id: '/onboarding/password-info'
+      path: '/onboarding/password-info'
+      fullPath: '/onboarding/password-info'
+      preLoaderRoute: typeof OnboardingPasswordInfoImport
       parentRoute: typeof rootRoute
     }
-    '/complete-profile/final-confirmation': {
-      id: '/complete-profile/final-confirmation'
-      path: '/complete-profile/final-confirmation'
-      fullPath: '/complete-profile/final-confirmation'
-      preLoaderRoute: typeof CompleteProfileFinalConfirmationImport
-      parentRoute: typeof rootRoute
-    }
-    '/complete-profile/payment-info': {
-      id: '/complete-profile/payment-info'
-      path: '/complete-profile/payment-info'
-      fullPath: '/complete-profile/payment-info'
-      preLoaderRoute: typeof CompleteProfilePaymentInfoImport
-      parentRoute: typeof rootRoute
-    }
-    '/complete-profile/personal-info': {
-      id: '/complete-profile/personal-info'
-      path: '/complete-profile/personal-info'
-      fullPath: '/complete-profile/personal-info'
-      preLoaderRoute: typeof CompleteProfilePersonalInfoImport
-      parentRoute: typeof rootRoute
-    }
-    '/complete-profile/update-password': {
-      id: '/complete-profile/update-password'
-      path: '/complete-profile/update-password'
-      fullPath: '/complete-profile/update-password'
-      preLoaderRoute: typeof CompleteProfileUpdatePasswordImport
+    '/onboarding/personal-info': {
+      id: '/onboarding/personal-info'
+      path: '/onboarding/personal-info'
+      fullPath: '/onboarding/personal-info'
+      preLoaderRoute: typeof OnboardingPersonalInfoImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/settings': {
@@ -504,20 +504,6 @@ declare module '@tanstack/react-router' {
       path: '/503'
       fullPath: '/503'
       preLoaderRoute: typeof errors503LazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/complete-profile/$userAcademyId/admin-payment': {
-      id: '/complete-profile/$userAcademyId/admin-payment'
-      path: '/complete-profile/$userAcademyId/admin-payment'
-      fullPath: '/complete-profile/$userAcademyId/admin-payment'
-      preLoaderRoute: typeof CompleteProfileUserAcademyIdAdminPaymentImport
-      parentRoute: typeof rootRoute
-    }
-    '/complete-profile/$userAcademyId/set-academy': {
-      id: '/complete-profile/$userAcademyId/set-academy'
-      path: '/complete-profile/$userAcademyId/set-academy'
-      fullPath: '/complete-profile/$userAcademyId/set-academy'
-      preLoaderRoute: typeof CompleteProfileUserAcademyIdSetAcademyImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/settings/account': {
@@ -590,18 +576,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUsersIndexLazyImport
       parentRoute: typeof AuthenticatedRouteImport
     }
-    '/complete-profile/$userAcademyId/set-academy/success': {
-      id: '/complete-profile/$userAcademyId/set-academy/success'
-      path: '/success'
-      fullPath: '/complete-profile/$userAcademyId/set-academy/success'
-      preLoaderRoute: typeof CompleteProfileUserAcademyIdSetAcademySuccessImport
-      parentRoute: typeof CompleteProfileUserAcademyIdSetAcademyImport
+    '/onboarding/$userAcademyId/admin/academy-preferences': {
+      id: '/onboarding/$userAcademyId/admin/academy-preferences'
+      path: '/onboarding/$userAcademyId/admin/academy-preferences'
+      fullPath: '/onboarding/$userAcademyId/admin/academy-preferences'
+      preLoaderRoute: typeof OnboardingUserAcademyIdAdminAcademyPreferencesImport
+      parentRoute: typeof rootRoute
     }
-    '/complete-profile/$userAcademyId/set-preferences/$academyId': {
-      id: '/complete-profile/$userAcademyId/set-preferences/$academyId'
-      path: '/complete-profile/$userAcademyId/set-preferences/$academyId'
-      fullPath: '/complete-profile/$userAcademyId/set-preferences/$academyId'
-      preLoaderRoute: typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdImport
+    '/onboarding/$userAcademyId/admin/create-academy': {
+      id: '/onboarding/$userAcademyId/admin/create-academy'
+      path: '/onboarding/$userAcademyId/admin/create-academy'
+      fullPath: '/onboarding/$userAcademyId/admin/create-academy'
+      preLoaderRoute: typeof OnboardingUserAcademyIdAdminCreateAcademyImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/admin/final-confirmation': {
+      id: '/onboarding/$userAcademyId/admin/final-confirmation'
+      path: '/onboarding/$userAcademyId/admin/final-confirmation'
+      fullPath: '/onboarding/$userAcademyId/admin/final-confirmation'
+      preLoaderRoute: typeof OnboardingUserAcademyIdAdminFinalConfirmationImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/admin/payment-failed': {
+      id: '/onboarding/$userAcademyId/admin/payment-failed'
+      path: '/onboarding/$userAcademyId/admin/payment-failed'
+      fullPath: '/onboarding/$userAcademyId/admin/payment-failed'
+      preLoaderRoute: typeof OnboardingUserAcademyIdAdminPaymentFailedImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/admin/payment-info': {
+      id: '/onboarding/$userAcademyId/admin/payment-info'
+      path: '/onboarding/$userAcademyId/admin/payment-info'
+      fullPath: '/onboarding/$userAcademyId/admin/payment-info'
+      preLoaderRoute: typeof OnboardingUserAcademyIdAdminPaymentInfoImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/admin/payment-success': {
+      id: '/onboarding/$userAcademyId/admin/payment-success'
+      path: '/onboarding/$userAcademyId/admin/payment-success'
+      fullPath: '/onboarding/$userAcademyId/admin/payment-success'
+      preLoaderRoute: typeof OnboardingUserAcademyIdAdminPaymentSuccessImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/student/final-confirmation': {
+      id: '/onboarding/$userAcademyId/student/final-confirmation'
+      path: '/onboarding/$userAcademyId/student/final-confirmation'
+      fullPath: '/onboarding/$userAcademyId/student/final-confirmation'
+      preLoaderRoute: typeof OnboardingUserAcademyIdStudentFinalConfirmationImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/student/join-academy': {
+      id: '/onboarding/$userAcademyId/student/join-academy'
+      path: '/onboarding/$userAcademyId/student/join-academy'
+      fullPath: '/onboarding/$userAcademyId/student/join-academy'
+      preLoaderRoute: typeof OnboardingUserAcademyIdStudentJoinAcademyImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/teacher/academy-request': {
+      id: '/onboarding/$userAcademyId/teacher/academy-request'
+      path: '/onboarding/$userAcademyId/teacher/academy-request'
+      fullPath: '/onboarding/$userAcademyId/teacher/academy-request'
+      preLoaderRoute: typeof OnboardingUserAcademyIdTeacherAcademyRequestImport
+      parentRoute: typeof rootRoute
+    }
+    '/onboarding/$userAcademyId/teacher/final-confirmation': {
+      id: '/onboarding/$userAcademyId/teacher/final-confirmation'
+      path: '/onboarding/$userAcademyId/teacher/final-confirmation'
+      fullPath: '/onboarding/$userAcademyId/teacher/final-confirmation'
+      preLoaderRoute: typeof OnboardingUserAcademyIdTeacherFinalConfirmationImport
       parentRoute: typeof rootRoute
     }
     '/_authenticated/admin/academies/$academyId/dashboard/content': {
@@ -667,21 +709,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface CompleteProfileUserAcademyIdSetAcademyRouteChildren {
-  CompleteProfileUserAcademyIdSetAcademySuccessRoute: typeof CompleteProfileUserAcademyIdSetAcademySuccessRoute
-}
-
-const CompleteProfileUserAcademyIdSetAcademyRouteChildren: CompleteProfileUserAcademyIdSetAcademyRouteChildren =
-  {
-    CompleteProfileUserAcademyIdSetAcademySuccessRoute:
-      CompleteProfileUserAcademyIdSetAcademySuccessRoute,
-  }
-
-const CompleteProfileUserAcademyIdSetAcademyRouteWithChildren =
-  CompleteProfileUserAcademyIdSetAcademyRoute._addFileChildren(
-    CompleteProfileUserAcademyIdSetAcademyRouteChildren,
-  )
-
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthenticatedRouteRouteWithChildren
@@ -689,11 +716,8 @@ export interface FileRoutesByFullPath {
   '/choose-academy': typeof authChooseAcademyRoute
   '/confirm-email': typeof authConfirmEmailRoute
   '/otp': typeof authOtpRoute
-  '/complete-profile/confirmation': typeof CompleteProfileConfirmationRoute
-  '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
-  '/complete-profile/payment-info': typeof CompleteProfilePaymentInfoRoute
-  '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
-  '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
+  '/onboarding/password-info': typeof OnboardingPasswordInfoRoute
+  '/onboarding/personal-info': typeof OnboardingPersonalInfoRoute
   '/settings': typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/sign-in': typeof authSignInLazyRoute
@@ -702,8 +726,6 @@ export interface FileRoutesByFullPath {
   '/403': typeof errors403LazyRoute
   '/404': typeof errors404LazyRoute
   '/503': typeof errors503LazyRoute
-  '/complete-profile/$userAcademyId/admin-payment': typeof CompleteProfileUserAcademyIdAdminPaymentRoute
-  '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   '/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
@@ -714,8 +736,16 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AuthenticatedSettingsIndexLazyRoute
   '/tasks': typeof AuthenticatedTasksIndexLazyRoute
   '/users': typeof AuthenticatedUsersIndexLazyRoute
-  '/complete-profile/$userAcademyId/set-academy/success': typeof CompleteProfileUserAcademyIdSetAcademySuccessRoute
-  '/complete-profile/$userAcademyId/set-preferences/$academyId': typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
+  '/onboarding/$userAcademyId/admin/academy-preferences': typeof OnboardingUserAcademyIdAdminAcademyPreferencesRoute
+  '/onboarding/$userAcademyId/admin/create-academy': typeof OnboardingUserAcademyIdAdminCreateAcademyRoute
+  '/onboarding/$userAcademyId/admin/final-confirmation': typeof OnboardingUserAcademyIdAdminFinalConfirmationRoute
+  '/onboarding/$userAcademyId/admin/payment-failed': typeof OnboardingUserAcademyIdAdminPaymentFailedRoute
+  '/onboarding/$userAcademyId/admin/payment-info': typeof OnboardingUserAcademyIdAdminPaymentInfoRoute
+  '/onboarding/$userAcademyId/admin/payment-success': typeof OnboardingUserAcademyIdAdminPaymentSuccessRoute
+  '/onboarding/$userAcademyId/student/final-confirmation': typeof OnboardingUserAcademyIdStudentFinalConfirmationRoute
+  '/onboarding/$userAcademyId/student/join-academy': typeof OnboardingUserAcademyIdStudentJoinAcademyRoute
+  '/onboarding/$userAcademyId/teacher/academy-request': typeof OnboardingUserAcademyIdTeacherAcademyRequestRoute
+  '/onboarding/$userAcademyId/teacher/final-confirmation': typeof OnboardingUserAcademyIdTeacherFinalConfirmationRoute
   '/admin/academies/$academyId/dashboard/content': typeof AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute
 }
 
@@ -726,11 +756,8 @@ export interface FileRoutesByTo {
   '/choose-academy': typeof authChooseAcademyRoute
   '/confirm-email': typeof authConfirmEmailRoute
   '/otp': typeof authOtpRoute
-  '/complete-profile/confirmation': typeof CompleteProfileConfirmationRoute
-  '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
-  '/complete-profile/payment-info': typeof CompleteProfilePaymentInfoRoute
-  '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
-  '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
+  '/onboarding/password-info': typeof OnboardingPasswordInfoRoute
+  '/onboarding/personal-info': typeof OnboardingPersonalInfoRoute
   '/forgot-password': typeof authForgotPasswordLazyRoute
   '/sign-in': typeof authSignInLazyRoute
   '/sign-up': typeof authSignUpLazyRoute
@@ -738,8 +765,6 @@ export interface FileRoutesByTo {
   '/403': typeof errors403LazyRoute
   '/404': typeof errors404LazyRoute
   '/503': typeof errors503LazyRoute
-  '/complete-profile/$userAcademyId/admin-payment': typeof CompleteProfileUserAcademyIdAdminPaymentRoute
-  '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   '/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
@@ -750,8 +775,16 @@ export interface FileRoutesByTo {
   '/settings': typeof AuthenticatedSettingsIndexLazyRoute
   '/tasks': typeof AuthenticatedTasksIndexLazyRoute
   '/users': typeof AuthenticatedUsersIndexLazyRoute
-  '/complete-profile/$userAcademyId/set-academy/success': typeof CompleteProfileUserAcademyIdSetAcademySuccessRoute
-  '/complete-profile/$userAcademyId/set-preferences/$academyId': typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
+  '/onboarding/$userAcademyId/admin/academy-preferences': typeof OnboardingUserAcademyIdAdminAcademyPreferencesRoute
+  '/onboarding/$userAcademyId/admin/create-academy': typeof OnboardingUserAcademyIdAdminCreateAcademyRoute
+  '/onboarding/$userAcademyId/admin/final-confirmation': typeof OnboardingUserAcademyIdAdminFinalConfirmationRoute
+  '/onboarding/$userAcademyId/admin/payment-failed': typeof OnboardingUserAcademyIdAdminPaymentFailedRoute
+  '/onboarding/$userAcademyId/admin/payment-info': typeof OnboardingUserAcademyIdAdminPaymentInfoRoute
+  '/onboarding/$userAcademyId/admin/payment-success': typeof OnboardingUserAcademyIdAdminPaymentSuccessRoute
+  '/onboarding/$userAcademyId/student/final-confirmation': typeof OnboardingUserAcademyIdStudentFinalConfirmationRoute
+  '/onboarding/$userAcademyId/student/join-academy': typeof OnboardingUserAcademyIdStudentJoinAcademyRoute
+  '/onboarding/$userAcademyId/teacher/academy-request': typeof OnboardingUserAcademyIdTeacherAcademyRequestRoute
+  '/onboarding/$userAcademyId/teacher/final-confirmation': typeof OnboardingUserAcademyIdTeacherFinalConfirmationRoute
   '/admin/academies/$academyId/dashboard/content': typeof AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute
 }
 
@@ -763,11 +796,8 @@ export interface FileRoutesById {
   '/(auth)/choose-academy': typeof authChooseAcademyRoute
   '/(auth)/confirm-email': typeof authConfirmEmailRoute
   '/(auth)/otp': typeof authOtpRoute
-  '/complete-profile/confirmation': typeof CompleteProfileConfirmationRoute
-  '/complete-profile/final-confirmation': typeof CompleteProfileFinalConfirmationRoute
-  '/complete-profile/payment-info': typeof CompleteProfilePaymentInfoRoute
-  '/complete-profile/personal-info': typeof CompleteProfilePersonalInfoRoute
-  '/complete-profile/update-password': typeof CompleteProfileUpdatePasswordRoute
+  '/onboarding/password-info': typeof OnboardingPasswordInfoRoute
+  '/onboarding/personal-info': typeof OnboardingPersonalInfoRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRouteLazyRouteWithChildren
   '/(auth)/forgot-password': typeof authForgotPasswordLazyRoute
   '/(auth)/sign-in': typeof authSignInLazyRoute
@@ -777,8 +807,6 @@ export interface FileRoutesById {
   '/(errors)/404': typeof errors404LazyRoute
   '/(errors)/500': typeof errors500LazyRoute
   '/(errors)/503': typeof errors503LazyRoute
-  '/complete-profile/$userAcademyId/admin-payment': typeof CompleteProfileUserAcademyIdAdminPaymentRoute
-  '/complete-profile/$userAcademyId/set-academy': typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
   '/_authenticated/settings/account': typeof AuthenticatedSettingsAccountLazyRoute
   '/_authenticated/settings/appearance': typeof AuthenticatedSettingsAppearanceLazyRoute
   '/_authenticated/settings/display': typeof AuthenticatedSettingsDisplayLazyRoute
@@ -789,8 +817,16 @@ export interface FileRoutesById {
   '/_authenticated/settings/': typeof AuthenticatedSettingsIndexLazyRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexLazyRoute
   '/_authenticated/users/': typeof AuthenticatedUsersIndexLazyRoute
-  '/complete-profile/$userAcademyId/set-academy/success': typeof CompleteProfileUserAcademyIdSetAcademySuccessRoute
-  '/complete-profile/$userAcademyId/set-preferences/$academyId': typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
+  '/onboarding/$userAcademyId/admin/academy-preferences': typeof OnboardingUserAcademyIdAdminAcademyPreferencesRoute
+  '/onboarding/$userAcademyId/admin/create-academy': typeof OnboardingUserAcademyIdAdminCreateAcademyRoute
+  '/onboarding/$userAcademyId/admin/final-confirmation': typeof OnboardingUserAcademyIdAdminFinalConfirmationRoute
+  '/onboarding/$userAcademyId/admin/payment-failed': typeof OnboardingUserAcademyIdAdminPaymentFailedRoute
+  '/onboarding/$userAcademyId/admin/payment-info': typeof OnboardingUserAcademyIdAdminPaymentInfoRoute
+  '/onboarding/$userAcademyId/admin/payment-success': typeof OnboardingUserAcademyIdAdminPaymentSuccessRoute
+  '/onboarding/$userAcademyId/student/final-confirmation': typeof OnboardingUserAcademyIdStudentFinalConfirmationRoute
+  '/onboarding/$userAcademyId/student/join-academy': typeof OnboardingUserAcademyIdStudentJoinAcademyRoute
+  '/onboarding/$userAcademyId/teacher/academy-request': typeof OnboardingUserAcademyIdTeacherAcademyRequestRoute
+  '/onboarding/$userAcademyId/teacher/final-confirmation': typeof OnboardingUserAcademyIdTeacherFinalConfirmationRoute
   '/_authenticated/admin/academies/$academyId/dashboard/content': typeof AuthenticatedAdminAcademiesAcademyIdDashboardContentRoute
 }
 
@@ -803,11 +839,8 @@ export interface FileRouteTypes {
     | '/choose-academy'
     | '/confirm-email'
     | '/otp'
-    | '/complete-profile/confirmation'
-    | '/complete-profile/final-confirmation'
-    | '/complete-profile/payment-info'
-    | '/complete-profile/personal-info'
-    | '/complete-profile/update-password'
+    | '/onboarding/password-info'
+    | '/onboarding/personal-info'
     | '/settings'
     | '/forgot-password'
     | '/sign-in'
@@ -816,8 +849,6 @@ export interface FileRouteTypes {
     | '/403'
     | '/404'
     | '/503'
-    | '/complete-profile/$userAcademyId/admin-payment'
-    | '/complete-profile/$userAcademyId/set-academy'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -828,8 +859,16 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/tasks'
     | '/users'
-    | '/complete-profile/$userAcademyId/set-academy/success'
-    | '/complete-profile/$userAcademyId/set-preferences/$academyId'
+    | '/onboarding/$userAcademyId/admin/academy-preferences'
+    | '/onboarding/$userAcademyId/admin/create-academy'
+    | '/onboarding/$userAcademyId/admin/final-confirmation'
+    | '/onboarding/$userAcademyId/admin/payment-failed'
+    | '/onboarding/$userAcademyId/admin/payment-info'
+    | '/onboarding/$userAcademyId/admin/payment-success'
+    | '/onboarding/$userAcademyId/student/final-confirmation'
+    | '/onboarding/$userAcademyId/student/join-academy'
+    | '/onboarding/$userAcademyId/teacher/academy-request'
+    | '/onboarding/$userAcademyId/teacher/final-confirmation'
     | '/admin/academies/$academyId/dashboard/content'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -839,11 +878,8 @@ export interface FileRouteTypes {
     | '/choose-academy'
     | '/confirm-email'
     | '/otp'
-    | '/complete-profile/confirmation'
-    | '/complete-profile/final-confirmation'
-    | '/complete-profile/payment-info'
-    | '/complete-profile/personal-info'
-    | '/complete-profile/update-password'
+    | '/onboarding/password-info'
+    | '/onboarding/personal-info'
     | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
@@ -851,8 +887,6 @@ export interface FileRouteTypes {
     | '/403'
     | '/404'
     | '/503'
-    | '/complete-profile/$userAcademyId/admin-payment'
-    | '/complete-profile/$userAcademyId/set-academy'
     | '/settings/account'
     | '/settings/appearance'
     | '/settings/display'
@@ -863,8 +897,16 @@ export interface FileRouteTypes {
     | '/settings'
     | '/tasks'
     | '/users'
-    | '/complete-profile/$userAcademyId/set-academy/success'
-    | '/complete-profile/$userAcademyId/set-preferences/$academyId'
+    | '/onboarding/$userAcademyId/admin/academy-preferences'
+    | '/onboarding/$userAcademyId/admin/create-academy'
+    | '/onboarding/$userAcademyId/admin/final-confirmation'
+    | '/onboarding/$userAcademyId/admin/payment-failed'
+    | '/onboarding/$userAcademyId/admin/payment-info'
+    | '/onboarding/$userAcademyId/admin/payment-success'
+    | '/onboarding/$userAcademyId/student/final-confirmation'
+    | '/onboarding/$userAcademyId/student/join-academy'
+    | '/onboarding/$userAcademyId/teacher/academy-request'
+    | '/onboarding/$userAcademyId/teacher/final-confirmation'
     | '/admin/academies/$academyId/dashboard/content'
   id:
     | '__root__'
@@ -874,11 +916,8 @@ export interface FileRouteTypes {
     | '/(auth)/choose-academy'
     | '/(auth)/confirm-email'
     | '/(auth)/otp'
-    | '/complete-profile/confirmation'
-    | '/complete-profile/final-confirmation'
-    | '/complete-profile/payment-info'
-    | '/complete-profile/personal-info'
-    | '/complete-profile/update-password'
+    | '/onboarding/password-info'
+    | '/onboarding/personal-info'
     | '/_authenticated/settings'
     | '/(auth)/forgot-password'
     | '/(auth)/sign-in'
@@ -888,8 +927,6 @@ export interface FileRouteTypes {
     | '/(errors)/404'
     | '/(errors)/500'
     | '/(errors)/503'
-    | '/complete-profile/$userAcademyId/admin-payment'
-    | '/complete-profile/$userAcademyId/set-academy'
     | '/_authenticated/settings/account'
     | '/_authenticated/settings/appearance'
     | '/_authenticated/settings/display'
@@ -900,8 +937,16 @@ export interface FileRouteTypes {
     | '/_authenticated/settings/'
     | '/_authenticated/tasks/'
     | '/_authenticated/users/'
-    | '/complete-profile/$userAcademyId/set-academy/success'
-    | '/complete-profile/$userAcademyId/set-preferences/$academyId'
+    | '/onboarding/$userAcademyId/admin/academy-preferences'
+    | '/onboarding/$userAcademyId/admin/create-academy'
+    | '/onboarding/$userAcademyId/admin/final-confirmation'
+    | '/onboarding/$userAcademyId/admin/payment-failed'
+    | '/onboarding/$userAcademyId/admin/payment-info'
+    | '/onboarding/$userAcademyId/admin/payment-success'
+    | '/onboarding/$userAcademyId/student/final-confirmation'
+    | '/onboarding/$userAcademyId/student/join-academy'
+    | '/onboarding/$userAcademyId/teacher/academy-request'
+    | '/onboarding/$userAcademyId/teacher/final-confirmation'
     | '/_authenticated/admin/academies/$academyId/dashboard/content'
   fileRoutesById: FileRoutesById
 }
@@ -913,11 +958,8 @@ export interface RootRouteChildren {
   authChooseAcademyRoute: typeof authChooseAcademyRoute
   authConfirmEmailRoute: typeof authConfirmEmailRoute
   authOtpRoute: typeof authOtpRoute
-  CompleteProfileConfirmationRoute: typeof CompleteProfileConfirmationRoute
-  CompleteProfileFinalConfirmationRoute: typeof CompleteProfileFinalConfirmationRoute
-  CompleteProfilePaymentInfoRoute: typeof CompleteProfilePaymentInfoRoute
-  CompleteProfilePersonalInfoRoute: typeof CompleteProfilePersonalInfoRoute
-  CompleteProfileUpdatePasswordRoute: typeof CompleteProfileUpdatePasswordRoute
+  OnboardingPasswordInfoRoute: typeof OnboardingPasswordInfoRoute
+  OnboardingPersonalInfoRoute: typeof OnboardingPersonalInfoRoute
   authForgotPasswordLazyRoute: typeof authForgotPasswordLazyRoute
   authSignInLazyRoute: typeof authSignInLazyRoute
   authSignUpLazyRoute: typeof authSignUpLazyRoute
@@ -926,9 +968,16 @@ export interface RootRouteChildren {
   errors404LazyRoute: typeof errors404LazyRoute
   errors500LazyRoute: typeof errors500LazyRoute
   errors503LazyRoute: typeof errors503LazyRoute
-  CompleteProfileUserAcademyIdAdminPaymentRoute: typeof CompleteProfileUserAcademyIdAdminPaymentRoute
-  CompleteProfileUserAcademyIdSetAcademyRoute: typeof CompleteProfileUserAcademyIdSetAcademyRouteWithChildren
-  CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute: typeof CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute
+  OnboardingUserAcademyIdAdminAcademyPreferencesRoute: typeof OnboardingUserAcademyIdAdminAcademyPreferencesRoute
+  OnboardingUserAcademyIdAdminCreateAcademyRoute: typeof OnboardingUserAcademyIdAdminCreateAcademyRoute
+  OnboardingUserAcademyIdAdminFinalConfirmationRoute: typeof OnboardingUserAcademyIdAdminFinalConfirmationRoute
+  OnboardingUserAcademyIdAdminPaymentFailedRoute: typeof OnboardingUserAcademyIdAdminPaymentFailedRoute
+  OnboardingUserAcademyIdAdminPaymentInfoRoute: typeof OnboardingUserAcademyIdAdminPaymentInfoRoute
+  OnboardingUserAcademyIdAdminPaymentSuccessRoute: typeof OnboardingUserAcademyIdAdminPaymentSuccessRoute
+  OnboardingUserAcademyIdStudentFinalConfirmationRoute: typeof OnboardingUserAcademyIdStudentFinalConfirmationRoute
+  OnboardingUserAcademyIdStudentJoinAcademyRoute: typeof OnboardingUserAcademyIdStudentJoinAcademyRoute
+  OnboardingUserAcademyIdTeacherAcademyRequestRoute: typeof OnboardingUserAcademyIdTeacherAcademyRequestRoute
+  OnboardingUserAcademyIdTeacherFinalConfirmationRoute: typeof OnboardingUserAcademyIdTeacherFinalConfirmationRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -938,11 +987,8 @@ const rootRouteChildren: RootRouteChildren = {
   authChooseAcademyRoute: authChooseAcademyRoute,
   authConfirmEmailRoute: authConfirmEmailRoute,
   authOtpRoute: authOtpRoute,
-  CompleteProfileConfirmationRoute: CompleteProfileConfirmationRoute,
-  CompleteProfileFinalConfirmationRoute: CompleteProfileFinalConfirmationRoute,
-  CompleteProfilePaymentInfoRoute: CompleteProfilePaymentInfoRoute,
-  CompleteProfilePersonalInfoRoute: CompleteProfilePersonalInfoRoute,
-  CompleteProfileUpdatePasswordRoute: CompleteProfileUpdatePasswordRoute,
+  OnboardingPasswordInfoRoute: OnboardingPasswordInfoRoute,
+  OnboardingPersonalInfoRoute: OnboardingPersonalInfoRoute,
   authForgotPasswordLazyRoute: authForgotPasswordLazyRoute,
   authSignInLazyRoute: authSignInLazyRoute,
   authSignUpLazyRoute: authSignUpLazyRoute,
@@ -951,12 +997,26 @@ const rootRouteChildren: RootRouteChildren = {
   errors404LazyRoute: errors404LazyRoute,
   errors500LazyRoute: errors500LazyRoute,
   errors503LazyRoute: errors503LazyRoute,
-  CompleteProfileUserAcademyIdAdminPaymentRoute:
-    CompleteProfileUserAcademyIdAdminPaymentRoute,
-  CompleteProfileUserAcademyIdSetAcademyRoute:
-    CompleteProfileUserAcademyIdSetAcademyRouteWithChildren,
-  CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute:
-    CompleteProfileUserAcademyIdSetPreferencesAcademyIdRoute,
+  OnboardingUserAcademyIdAdminAcademyPreferencesRoute:
+    OnboardingUserAcademyIdAdminAcademyPreferencesRoute,
+  OnboardingUserAcademyIdAdminCreateAcademyRoute:
+    OnboardingUserAcademyIdAdminCreateAcademyRoute,
+  OnboardingUserAcademyIdAdminFinalConfirmationRoute:
+    OnboardingUserAcademyIdAdminFinalConfirmationRoute,
+  OnboardingUserAcademyIdAdminPaymentFailedRoute:
+    OnboardingUserAcademyIdAdminPaymentFailedRoute,
+  OnboardingUserAcademyIdAdminPaymentInfoRoute:
+    OnboardingUserAcademyIdAdminPaymentInfoRoute,
+  OnboardingUserAcademyIdAdminPaymentSuccessRoute:
+    OnboardingUserAcademyIdAdminPaymentSuccessRoute,
+  OnboardingUserAcademyIdStudentFinalConfirmationRoute:
+    OnboardingUserAcademyIdStudentFinalConfirmationRoute,
+  OnboardingUserAcademyIdStudentJoinAcademyRoute:
+    OnboardingUserAcademyIdStudentJoinAcademyRoute,
+  OnboardingUserAcademyIdTeacherAcademyRequestRoute:
+    OnboardingUserAcademyIdTeacherAcademyRequestRoute,
+  OnboardingUserAcademyIdTeacherFinalConfirmationRoute:
+    OnboardingUserAcademyIdTeacherFinalConfirmationRoute,
 }
 
 export const routeTree = rootRoute
@@ -975,11 +1035,8 @@ export const routeTree = rootRoute
         "/(auth)/choose-academy",
         "/(auth)/confirm-email",
         "/(auth)/otp",
-        "/complete-profile/confirmation",
-        "/complete-profile/final-confirmation",
-        "/complete-profile/payment-info",
-        "/complete-profile/personal-info",
-        "/complete-profile/update-password",
+        "/onboarding/password-info",
+        "/onboarding/personal-info",
         "/(auth)/forgot-password",
         "/(auth)/sign-in",
         "/(auth)/sign-up",
@@ -988,9 +1045,16 @@ export const routeTree = rootRoute
         "/(errors)/404",
         "/(errors)/500",
         "/(errors)/503",
-        "/complete-profile/$userAcademyId/admin-payment",
-        "/complete-profile/$userAcademyId/set-academy",
-        "/complete-profile/$userAcademyId/set-preferences/$academyId"
+        "/onboarding/$userAcademyId/admin/academy-preferences",
+        "/onboarding/$userAcademyId/admin/create-academy",
+        "/onboarding/$userAcademyId/admin/final-confirmation",
+        "/onboarding/$userAcademyId/admin/payment-failed",
+        "/onboarding/$userAcademyId/admin/payment-info",
+        "/onboarding/$userAcademyId/admin/payment-success",
+        "/onboarding/$userAcademyId/student/final-confirmation",
+        "/onboarding/$userAcademyId/student/join-academy",
+        "/onboarding/$userAcademyId/teacher/academy-request",
+        "/onboarding/$userAcademyId/teacher/final-confirmation"
       ]
     },
     "/": {
@@ -1020,20 +1084,11 @@ export const routeTree = rootRoute
     "/(auth)/otp": {
       "filePath": "(auth)/otp.tsx"
     },
-    "/complete-profile/confirmation": {
-      "filePath": "complete-profile/confirmation.tsx"
+    "/onboarding/password-info": {
+      "filePath": "onboarding/password-info.tsx"
     },
-    "/complete-profile/final-confirmation": {
-      "filePath": "complete-profile/final-confirmation.tsx"
-    },
-    "/complete-profile/payment-info": {
-      "filePath": "complete-profile/payment-info.tsx"
-    },
-    "/complete-profile/personal-info": {
-      "filePath": "complete-profile/personal-info.tsx"
-    },
-    "/complete-profile/update-password": {
-      "filePath": "complete-profile/update-password.tsx"
+    "/onboarding/personal-info": {
+      "filePath": "onboarding/personal-info.tsx"
     },
     "/_authenticated/settings": {
       "filePath": "_authenticated/settings/route.lazy.tsx",
@@ -1069,15 +1124,6 @@ export const routeTree = rootRoute
     },
     "/(errors)/503": {
       "filePath": "(errors)/503.lazy.tsx"
-    },
-    "/complete-profile/$userAcademyId/admin-payment": {
-      "filePath": "complete-profile/$userAcademyId/admin-payment.tsx"
-    },
-    "/complete-profile/$userAcademyId/set-academy": {
-      "filePath": "complete-profile/$userAcademyId/set-academy.tsx",
-      "children": [
-        "/complete-profile/$userAcademyId/set-academy/success"
-      ]
     },
     "/_authenticated/settings/account": {
       "filePath": "_authenticated/settings/account.lazy.tsx",
@@ -1119,12 +1165,35 @@ export const routeTree = rootRoute
       "filePath": "_authenticated/users/index.lazy.tsx",
       "parent": "/_authenticated"
     },
-    "/complete-profile/$userAcademyId/set-academy/success": {
-      "filePath": "complete-profile/$userAcademyId/set-academy/success.tsx",
-      "parent": "/complete-profile/$userAcademyId/set-academy"
+    "/onboarding/$userAcademyId/admin/academy-preferences": {
+      "filePath": "onboarding/$userAcademyId/admin/academy-preferences.tsx"
     },
-    "/complete-profile/$userAcademyId/set-preferences/$academyId": {
-      "filePath": "complete-profile/$userAcademyId/set-preferences/$academyId.tsx"
+    "/onboarding/$userAcademyId/admin/create-academy": {
+      "filePath": "onboarding/$userAcademyId/admin/create-academy.tsx"
+    },
+    "/onboarding/$userAcademyId/admin/final-confirmation": {
+      "filePath": "onboarding/$userAcademyId/admin/final-confirmation.tsx"
+    },
+    "/onboarding/$userAcademyId/admin/payment-failed": {
+      "filePath": "onboarding/$userAcademyId/admin/payment-failed.tsx"
+    },
+    "/onboarding/$userAcademyId/admin/payment-info": {
+      "filePath": "onboarding/$userAcademyId/admin/payment-info.tsx"
+    },
+    "/onboarding/$userAcademyId/admin/payment-success": {
+      "filePath": "onboarding/$userAcademyId/admin/payment-success.tsx"
+    },
+    "/onboarding/$userAcademyId/student/final-confirmation": {
+      "filePath": "onboarding/$userAcademyId/student/final-confirmation.tsx"
+    },
+    "/onboarding/$userAcademyId/student/join-academy": {
+      "filePath": "onboarding/$userAcademyId/student/join-academy.tsx"
+    },
+    "/onboarding/$userAcademyId/teacher/academy-request": {
+      "filePath": "onboarding/$userAcademyId/teacher/academy-request.tsx"
+    },
+    "/onboarding/$userAcademyId/teacher/final-confirmation": {
+      "filePath": "onboarding/$userAcademyId/teacher/final-confirmation.tsx"
     },
     "/_authenticated/admin/academies/$academyId/dashboard/content": {
       "filePath": "_authenticated/admin/academies/$academyId/dashboard/content.tsx",

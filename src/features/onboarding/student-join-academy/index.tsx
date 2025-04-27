@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion'
-import WizardHeader from '@/features/onboarding/components/WizardHeader'
+import WizardHeader from '../components/WizardHeader'
 import UpdatePasswordForm from '../../onboarding/password-info-step/UpdatePasswordForm.tsx'
 import { useRef } from 'react'
-export default function UpdatePasswordStep() {
+import { COMMON_WIZARD_ROUTES } from '@/features/onboarding/config/wizard-routes.ts'
+export default function StudentJoinAcademyStep() {
   const formRef = useRef<HTMLFormElement>(null!)
 
   return (
@@ -13,7 +14,9 @@ export default function UpdatePasswordStep() {
       transition={{ duration: 0.5 }}
       className='px-6 py-8'
     >
-      <WizardHeader />
+      <WizardHeader
+        wizardRoutes={COMMON_WIZARD_ROUTES}
+      />
 
       <div className='rounded-lg border bg-card p-6 shadow-sm'>
         <h2 className='mb-6 text-2xl font-bold'>Actualiza tu contraseña</h2>
@@ -24,9 +27,9 @@ export default function UpdatePasswordStep() {
 
         <div className='mb-12'>
           <div className='rounded-md border p-8 text-center text-muted-foreground'>
-          <UpdatePasswordForm
-            formRef={formRef}
-          />
+            <UpdatePasswordForm
+              formRef={formRef}
+            />
           </div>
         </div>
 

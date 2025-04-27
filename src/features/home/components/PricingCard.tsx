@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { useNavigate } from '@tanstack/react-router'
 
 interface PricingCardProps {
   title: string
@@ -17,6 +18,7 @@ interface PricingCardProps {
   features: string[]
   buttonText: string
   highlighted?: boolean
+  path?: string
 }
 
 export const PricingCard: React.FC<PricingCardProps> = ({
@@ -26,7 +28,14 @@ export const PricingCard: React.FC<PricingCardProps> = ({
   features,
   buttonText,
   highlighted = false,
+  path = ''
 }) => {
+  const navigate = useNavigate()
+  const handleNavigate = () => {
+    navigate({
+      to: path
+    })
+  }
   return (
     <motion.div
       whileHover={{
@@ -77,6 +86,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
           <Button
             className='w-full text-sm sm:text-base'
             variant={highlighted ? 'default' : 'outline'}
+            onClick={handleNavigate}
           >
             {buttonText}
           </Button>

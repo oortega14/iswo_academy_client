@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { AdminPaymentForm, FormValues } from './AdminPaymentForm';
-import WizardHeader from '../components/WizardHeader';
+import WizardHeader from '@/features/onboarding/components/WizardHeader';
 import {
   Card,
   CardContent,

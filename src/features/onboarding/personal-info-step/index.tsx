@@ -1,7 +1,8 @@
 import { useRef } from 'react'
 import { motion } from 'framer-motion'
-import WizardHeader from '../components/WizardHeader'
-import PersonalInfoForm from './PersonalInfoForm'
+import WizardHeader from '@/features/onboarding/components/WizardHeader.tsx'
+import PersonalInfoForm from '@/features/onboarding/personal-info-step/PersonalInfoForm.tsx'
+import { COMMON_WIZARD_ROUTES } from '@/features/onboarding/config/wizard-routes.ts'
 
 export default function PersonalInfoStep() {
   const formRef = useRef<HTMLFormElement>(null!)
@@ -14,7 +15,9 @@ export default function PersonalInfoStep() {
       transition={{ duration: 0.5 }}
       className='px-6 py-8'
     >
-      <WizardHeader />
+      <WizardHeader
+        wizardRoutes={COMMON_WIZARD_ROUTES}
+      />
 
       <div className='rounded-lg border bg-card p-6 shadow-sm'>
         <h2 className='mb-6 text-2xl font-bold'>Completa tu perfil</h2>

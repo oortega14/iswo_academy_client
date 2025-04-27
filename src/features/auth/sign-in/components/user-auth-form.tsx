@@ -46,7 +46,6 @@ const formSchema = z.object({
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState('')
   const navigate = useNavigate()
 
   const { login } = useAuth()
@@ -69,19 +68,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       if (!response.data.user.is_profile_completed) {
         switch (response.data.user.wizard_step) {
           case 'personal_info_step':
-            navigate({ to: '/complete-profile/personal-info' })
+            navigate({ to: '/onboarding/personal-info' })
             break;
           case 'password_step':
-            navigate({ to: '/complete-profile/update-password' })
-            break;
-          case 'academy_selection_step':
-            navigate({ to: `/complete-profile/${response.data.user.user_academies[0].id}/set-academy` })
-            break;
-          case 'preferences_step':
-            navigate({ to: `/complete-profile/${response.data.user.user_academies[0].id}/set-preferences/${response.data.user.user_academies[0].academy_id}` })
-            break;
-          case 'confirmation_step':
-            navigate({ to: '/complete-profile/final-confirmation' })
+            navigate({ to: '/onboarding/password-info' })
             break;
           default:
             break;
